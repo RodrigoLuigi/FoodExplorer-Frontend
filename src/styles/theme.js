@@ -1,0 +1,14 @@
+export default {
+	COLORS: {
+		BACKGROUND_1000: '#000A0F',
+		BACKGROUND_900: '#001119',
+		BACKGROUND_850: '#0D1D25',
+
+		WHITE: '#FFFFFF',
+
+		GRAY_200: '#7C7C8A',
+		GRAY_100: '#C4C4CC',
+
+		RED_500: '#92000E'
+	}
+}
