@@ -25,6 +25,7 @@ export function SignUp() {
 					type="text"
 					label="Seu nome"
 					id="name"
+					className="input-signup"
 				/>
 
 				<Input
@@ -32,6 +33,7 @@ export function SignUp() {
 					type="email"
 					label="Email"
 					id="email"
+					className="input-signup"
 				/>
 
 				<Input
@@ -39,6 +41,7 @@ export function SignUp() {
 					type="password"
 					label="Senha"
 					id="password"
+					className="input-signup"
 				/>
 
 				<Button

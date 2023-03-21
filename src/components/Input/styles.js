@@ -16,8 +16,8 @@ export const Container = styled.div`
 	}
 
 	> input {
-		font-size: 1.6rem;
-		font-weight: 400;
+		width: 100%;
+		height: 4.8rem;
 
 		color: ${({ theme }) => theme.COLORS.WHITE};
 
@@ -28,8 +28,13 @@ export const Container = styled.div`
 
 		background-color: transparent;
 
-		::placeholder {
+		&:placeholder {
 			color: ${({ theme }) => theme.COLORS.GRAY_200};
 		}
+	}
+
+	> .input-signup {
+		background: ${({ theme }) => theme.COLORS.BACKGROUND_850};
+		border: none;
 	}
 `
