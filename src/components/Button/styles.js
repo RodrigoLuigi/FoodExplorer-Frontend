@@ -13,8 +13,8 @@ export const Container = styled.button`
 	line-height: 2.4rem;
 	text-align: center;
 
-	background-color: ${({ theme }) => theme.COLORS.RED_500};
-	color: ${({ theme }) => theme.COLORS.WHITE};
+	background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+	color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
 	&:disabled {
 		opacity: 0.5;

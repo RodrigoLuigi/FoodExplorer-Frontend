@@ -5,7 +5,7 @@ export const Container = styled.button`
 	font-weight: 500;
 	line-height: 2.4rem;
 
-	color: ${({ theme }) => theme.COLORS.WHITE};
+	color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
 	background: none;
 	border: none;
