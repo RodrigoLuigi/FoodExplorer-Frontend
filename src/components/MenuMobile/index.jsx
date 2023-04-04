@@ -1,0 +1,35 @@
+import { useEffect } from 'react'
+
+import { IoClose } from 'react-icons/io5'
+import { FiSearch } from 'react-icons/fi'
+
+import { Input } from '../Input'
+import { ButtonText } from '../ButtonText'
+
+import { Container, Search } from './styles'
+
+export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
+	useEffect(() => {
+		document.body.style.overflowY = menuIsVisible ? 'hidden' : 'auto'
+	}, [menuIsVisible])
+
+	return (
+		<Container isVisible={menuIsVisible}>
+			<div className="header">
+				<IoClose size={24} onClick={() => setMenuIsVisible(false)} />
+				<span>Menu</span>
+			</div>
+
+			<div className="content">
+				<Search>
+					<FiSearch size={24} />
+					<Input placeholder="Busque por pratos e ingredientes" type="text" />
+				</Search>
+
+				<div className="signout">
+					<ButtonText title="Sair" />
+				</div>
+			</div>
+		</Container>
+	)
+}
