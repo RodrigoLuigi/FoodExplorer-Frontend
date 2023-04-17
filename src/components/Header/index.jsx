@@ -30,7 +30,10 @@ export function Header() {
 				/>
 
 				<Logo>
-					<img src={logo} alt="" />
+					<img
+						src={logo}
+						alt="Hexagono de cor azul com texto Food Explorer do lado direito"
+					/>
 				</Logo>
 
 				<Search>

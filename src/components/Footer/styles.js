@@ -17,12 +17,20 @@ export const Container = styled.footer`
 		justify-content: space-between;
 		align-items: center;
 
+		gap: 8px;
+
 		img {
-			width: clamp(16rem, 10rem + 10vw, 18.6rem);
+			width: clamp(14.2rem, 10rem + 10vw, 18.6rem);
 		}
 
 		span {
+			text-align: center;
+			font-size: 12px;
 			color: ${({ theme }) => theme.COLORS.LIGHT_200};
+
+			@media (min-width: 768px) {
+				font-size: 14px;
+			}
 		}
 	}
 `
