@@ -1,12 +1,18 @@
 import styled from 'styled-components'
 
 export const Container = styled.button`
-	font-size: 1.4rem;
-	font-weight: 500;
-	line-height: 2.4rem;
+	display: flex;
+	align-items: center;
 
-	color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
-	background: none;
+	background-color: transparent;
 	border: none;
+
+	color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+	span {
+		font-family: var(--ff-heading);
+		font-size: 2.4rem;
+		font-weight: 500;
+		line-height: 2.4rem;
+	}
 `
