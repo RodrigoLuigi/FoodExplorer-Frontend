@@ -2,6 +2,8 @@ import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Brand } from '../../components/Brand'
 
+import { useAuth } from '../../hooks/auth'
+
 import { Category } from '../../components/Category'
 import { Carousel } from '../../components/Carousel'
 import { Card } from '../../components/Card'
@@ -138,14 +140,19 @@ export function Home() {
 		}
 	]
 
+	const { user } = useAuth()
+
+	const role = user.role
+
 	return (
 		<Container>
 			<Header />
-
 			<main>
 				<Brand />
+				
 
 				<Content>
+					{role === 'ROLE_ADMIN' && (<h3>SOU ADMIN</h3>)}
 					<Category title="Refeições">
 						<Carousel>
 							{dishes.map((dishe) => {

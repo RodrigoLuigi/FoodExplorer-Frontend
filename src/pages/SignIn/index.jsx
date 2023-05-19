@@ -1,4 +1,7 @@
 import { useState } from 'react'
+
+import { useAuth } from '../../hooks/auth'
+
 import { Link } from 'react-router-dom'
 
 import logo from '../../assets/logo.svg'
@@ -10,6 +13,14 @@ import { Container, Form, Logo } from './styles'
 
 export function SignIn() {
 	const [loading, setLoading] = useState(false)
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+	const { signIn, user } = useAuth()
+
+	function handleSignIn() {
+		signIn({ email, password })
+	}
 
 	return (
 		<Container>
@@ -24,17 +35,20 @@ export function SignIn() {
 					placeholder="Exemplo: exemplo@exemplo.com"
 					type="email"
 					label="Email"
+					onChange={(e) => setEmail(e.target.value)}
 				/>
 
 				<Input
 					placeholder="No mínimo 6 caracteres "
 					type="password"
 					label="Senha"
+					onChange={(e) => setPassword(e.target.value)}
 				/>
 
 				<Button
 					disabled={loading}
 					title={loading ? 'Carregando...' : 'Entrar'}
+					onClick={handleSignIn}
 				/>
 
 				<Link to="/register">Criar uma conta</Link>
