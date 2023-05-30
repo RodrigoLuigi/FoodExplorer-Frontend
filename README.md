@@ -25,3 +25,4 @@ npm install react-slick
 - refactor: adjust Input props in component Header and adjust styles
 - refactor: ajust crousel implementation and organization in Home page
 - refactor: adjust Details page
+- feat: add localStorage in auth Hook

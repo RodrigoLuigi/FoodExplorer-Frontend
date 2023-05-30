@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { useAuth } from '../../hooks/auth'
+import { useNavigate } from 'react-router-dom'
+
 import logo from '../../assets/logo.svg'
 import receipt from '../../assets/receipt.svg'
 
@@ -14,6 +17,15 @@ import { Container, Logo, Search, Orders, Logout } from './styles'
 
 export function Header({ setSearch }) {
 	const [menuIsVisible, setMenuIsVisible] = useState(false)
+
+	const { signOut } = useAuth()
+
+	const navigate = useNavigate()
+
+	function handleSignOut() {
+		navigate('/')
+		signOut()
+	}
 
 	return (
 		<Container>
@@ -55,7 +67,7 @@ export function Header({ setSearch }) {
 					</strong>
 				</Orders>
 
-				<Logout>
+				<Logout onClick={handleSignOut}>
 					<MdLogout size={32} />
 				</Logout>
 			</div>
