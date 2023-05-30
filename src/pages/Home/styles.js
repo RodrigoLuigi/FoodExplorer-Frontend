@@ -14,6 +14,8 @@ export const Container = styled.div`
 	> main {
 		grid-area: content;
 		width: 100vw;
+
+		margin-top: 11.6rem;
 	}
 `
 

@@ -12,7 +12,7 @@ import { MenuMobile } from '../MenuMobile'
 
 import { Container, Logo, Search, Orders, Logout } from './styles'
 
-export function Header() {
+export function Header({ setSearch }) {
 	const [menuIsVisible, setMenuIsVisible] = useState(false)
 
 	return (
@@ -39,7 +39,11 @@ export function Header() {
 				<Search>
 					<div>
 						<FiSearch size={24} />
-						<Input placeholder="Busque por pratos e ingredientes" type="text" />
+						<Input
+							placeholder="Busque por pratos e ingredientes"
+							type="text"
+							onChange={(e) => setSearch(e.target.value)}
+						/>
 					</div>
 				</Search>
 

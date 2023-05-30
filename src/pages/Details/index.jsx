@@ -1,27 +1,24 @@
+import { api } from '../../services/api'
+import { useState, useEffect } from 'react'
+
+import { useNavigate, useParams } from 'react-router-dom'
+
 import dishe from '../../assets/dishe.png'
-import { FiPlus, FiMinus, FiChevronLeft } from 'react-icons/fi'
 import receipt from '../../assets/receipt.svg'
 
-import { useNavigate } from 'react-router-dom'
+import { FiPlus, FiMinus, FiChevronLeft } from 'react-icons/fi'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import { ButtonText } from '../../components/ButtonText'
 import { Button } from '../../components/Button'
+import { ButtonText } from '../../components/ButtonText'
 
 import { Container, Content, ProductNote, Image, Include, Info } from './styles'
-import { useState } from 'react'
 
 export function Details() {
-	const data = {
-		id: 1,
-		disheImg: '',
-		title: 'Torrada de Parma',
-		description:
-			'	Presunto de parma e rúcula em um pão com fermentação natural.',
-		price: '25,95'
-	}
+	const [data, setData] = useState({})
 
+	const params = useParams()
 	const navigate = useNavigate()
 
 	function handleBack() {
@@ -42,6 +39,21 @@ export function Details() {
 			setCount(count - 1)
 		}
 	}
+
+	const imageUrl = data.imagePath
+		? `${api.defaults.baseURL}/files/${data.imagePath}`
+		: dishe
+
+	useEffect(() => {
+		async function fetchProduct() {
+			const response = await api.get(`/products/${params.id}`)
+			setData(response.data)
+		}
+
+		fetchProduct()
+		window.scrollTo(0, 0)
+	}, [])
+
 	return (
 		<Container>
 			<Header />
@@ -55,16 +67,13 @@ export function Details() {
 
 					<ProductNote>
 						<Image>
-							<img src={dishe} alt="" />
+							<img src={imageUrl} alt="" />
 						</Image>
 
 						<Info>
 							<div className="description">
-								<h1>Salada Revanello</h1>
-								<p>
-									Rabanetes, folhas verdes e molho agridoce salpicados com
-									gergelim. O pão naan dá um toque especial.
-								</p>
+								<h1>{data.name}</h1>
+								<p>{data.description}</p>
 
 								<div className="ingredients">
 									<span>alface</span>

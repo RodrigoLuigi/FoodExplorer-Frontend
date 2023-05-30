@@ -1,181 +1,74 @@
+import { api } from '../../services/api'
+import { useEffect, useState } from 'react'
+
+import { SwiperSlide } from 'swiper/react'
+
+import { Card } from '../../components/Card'
+import { Brand } from '../../components/Brand'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import { Brand } from '../../components/Brand'
+import { Category } from '../../components/Category'
+import { CarouselSwiper } from '../../components/CarouselSwiper'
 
 import { useAuth } from '../../hooks/auth'
-
-import { Category } from '../../components/Category'
-import { Carousel } from '../../components/Carousel'
-import { Card } from '../../components/Card'
 
 import { Container, Content } from './styles'
 
 export function Home() {
-	const dishes = [
-		{
-			id: 1,
-			disheImg: '',
-			title: 'Torrada de Parma',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 2,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 3,
-			disheImg: '',
-			title: 'Isca de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 4,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 5,
-			disheImg: '',
-			title: 'Torrada de Integral',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
+	const [categories, setCategories] = useState([])
+	const [products, setProducts] = useState([])
+
+	const [search, setSearch] = useState('')
+	const [ingredientsSearch, setIngredientsSearch] = useState([])
+
+	/* const { user } = useAuth()
+	const role = user.role */
+
+	useEffect(() => {
+		async function fetchCategories() {
+			const response = await api.get(`/categories`)
+			setCategories(response.data)
+			console.log(categories[0])
 		}
-	]
+		fetchCategories()
+	}, [])
 
-	const desserts = [
-		{
-			id: 1,
-			disheImg: '',
-			title: 'Torrada de Parma',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 2,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 3,
-			disheImg: '',
-			title: 'Isca de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 4,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 5,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
+	useEffect(() => {
+		async function fetchProducts() {
+			const response = await api.get(
+				`/products?name=${search}&ingredients=${ingredientsSearch}`
+			)
+			setProducts(response.data)
 		}
-	]
 
-	const drinks = [
-		{
-			id: 1,
-			disheImg: '',
-			title: 'Torrada de Parma',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 2,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 3,
-			disheImg: '',
-			title: 'Isca de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 4,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		},
-		{
-			id: 5,
-			disheImg: '',
-			title: 'Torrada de Flango',
-			description:
-				'	Presunto de parma e rúcula em um pão com fermentação natural.',
-			price: '25,95'
-		}
-	]
-
-	const { user } = useAuth()
-
-	const role = user.role
+		fetchProducts()
+	}, [search, ingredientsSearch])
 
 	return (
 		<Container>
-			<Header />
+			<Header setSearch={setSearch} />
+
 			<main>
 				<Brand />
-				
 
 				<Content>
-					{role === 'ROLE_ADMIN' && (<h3>SOU ADMIN</h3>)}
-					<Category title="Refeições">
-						<Carousel>
-							{dishes.map((dishe) => {
-								return <Card data={dishe} key={String(dishe.id)} />
-							})}
-						</Carousel>
-					</Category>
-
-					<Category title="Sobremesas">
-						<Carousel>
-							{desserts.map((dessert) => {
-								return <Card data={dessert} key={String(dessert.id)} />
-							})}
-						</Carousel>
-					</Category>
-
-					<Category title="Bebidas">
-						<Carousel>
-							{drinks.map((drink) => {
-								return <Card data={drink} key={String(drink.id)} />
-							})}
-						</Carousel>
-					</Category>
+					{categories.map((category) => (
+						<Category title={category.name} key={String(category.id)}>
+							<CarouselSwiper>
+								{products.length > 0 ? (
+									products
+										.filter((product) => product.category_id === category.id)
+										.map((product, index) => (
+											<SwiperSlide key={String(product.id)}>
+												<Card data={product} className="swiper-slide" />
+											</SwiperSlide>
+										))
+								) : (
+									<h3>NENHUM PRODUTO CADASTRADO</h3>
+								)}
+							</CarouselSwiper>
+						</Category>
+					))}
 				</Content>
 			</main>
 

@@ -1,37 +1,29 @@
-import { useState } from 'react'
-
-import dishe from '../../assets/dishe.png'
-
-import { MdFavoriteBorder } from 'react-icons/md'
-import { FiPlus, FiMinus } from 'react-icons/fi'
-
-import { Button } from '../Button'
-
-import { Container, Favorites, CardImage, Info, Include } from './styles'
 import { useNavigate } from 'react-router-dom'
 
+import avatar from '../../assets/receipt.svg' /* refatorar */
+
+import { api } from '../../services/api'
+
+import { MdFavoriteBorder } from 'react-icons/md'
+
+import { Button } from '../Button'
+import { Counter } from '../Counter'
+
+import { Container, Favorites, CardImage, Info, Include } from './styles'
+
 export function Card({ data }) {
-	const [count, setCount] = useState(1)
-	let quantity = String(count).padStart(2, '0')
+	const imageUrl = data.imagePath
+		? `${api.defaults.baseURL}/files/${data.imagePath}`
+		: avatar
 
 	const navigate = useNavigate()
 
-	function increaseCount() {
-		if (count < 5) {
-			setCount(count + 1)
-		}
-	}
-
-	function decreaseCount() {
-		if (count > 1) {
-			setCount(count - 1)
-		}
-	}
-
 	function handleDetails(id) {
 		navigate(`/details/${id}`)
-		return console.log(`Details XXX ${id} ${data.title}`)
 	}
+
+	const convertPrice = Number(data.price / 100)
+	const price = String(convertPrice).replace('.', ',')
 
 	return (
 		<Container>
@@ -40,29 +32,21 @@ export function Card({ data }) {
 			</Favorites>
 
 			<CardImage>
-				<img src={dishe} alt="Dishe" />
+				<img src={imageUrl} alt={`Imagem do prato ${data.name}`} />
 			</CardImage>
 
 			<Info>
 				<button type="button" onClick={() => handleDetails(data.id)}>
-					<h2 className="title">{data.title}</h2>
+					<h2 className="title">{data.name}</h2>
 					<span>&gt;</span>
 				</button>
 				<p className="description">{data.description}</p>
-				<strong className="price">R$ {data.price}</strong>
+				<strong className="price">R$ {price}</strong>
 			</Info>
 
 			<Include>
-				<div className="count">
-					<button type="button" onClick={decreaseCount}>
-						<FiMinus size={24} />
-					</button>
-					<span>{quantity}</span>
-					<button type="button" onClick={increaseCount}>
-						<FiPlus size={24} />
-					</button>
-				</div>
-				<Button title="incluir" onClick={() => console.log(count)} />
+				<Counter />
+				<Button title="incluir" onClick={() => console.log(data.id)} />
 			</Include>
 		</Container>
 	)

@@ -68,7 +68,7 @@ export const Info = styled.div`
 		color: ${({ theme }) => theme.COLORS.LIGHT_300};
 	}
 
-	h2 {
+	.title {
 		font-family: var(--ff-heading);
 		font-size: clamp(1.4rem, 0.4rem + 2vw, 2.4rem);
 		font-weight: 700;
@@ -89,13 +89,13 @@ export const Info = styled.div`
 		color: ${({ theme }) => theme.COLORS.CAKE_200};
 	}
 
-	p {
+	.description {
 		display: none;
 		font-size: 1.4rem;
 		color: ${({ theme }) => theme.COLORS.LIGHT_400};
 	}
 
-	strong {
+	.price {
 		font-size: clamp(1.6rem, 0.8rem + 2vw, 3.2rem);
 		font-weight: 400;
 
@@ -103,7 +103,7 @@ export const Info = styled.div`
 	}
 
 	@media (min-width: 768px) {
-		p {
+		.description {
 			display: block;
 		}
 	}
@@ -118,21 +118,6 @@ export const Include = styled.div`
 	align-items: center;
 	gap: 1.6rem;
 
-	.count {
-		display: flex;
-		align-items: center;
-		gap: 1.6rem;
-
-		button {
-			background-color: transparent;
-			border: none;
-			color: white;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-	}
-
 	@media (min-width: 872px) {
 		flex-direction: row;
 		width: auto;
@@ -144,10 +129,6 @@ export const Include = styled.div`
 		svg {
 			width: 18px;
 			height: 18px;
-		}
-
-		.count {
-			gap: 1.4rem;
 		}
 	}
 `
