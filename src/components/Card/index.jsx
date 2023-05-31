@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/auth'
 
 import avatar from '../../assets/receipt.svg' /* refatorar */
 
 import { api } from '../../services/api'
 
+import pencil from '../../assets/pencil.svg'
 import { MdFavoriteBorder } from 'react-icons/md'
 
 import { Button } from '../Button'
@@ -17,6 +19,7 @@ export function Card({ data }) {
 		: avatar
 
 	const navigate = useNavigate()
+	const { user } = useAuth()
 
 	function handleDetails(id) {
 		navigate(`/details/${id}`)
@@ -28,7 +31,11 @@ export function Card({ data }) {
 	return (
 		<Container>
 			<Favorites>
-				<MdFavoriteBorder size={24} />
+				{user.role === 'ROLE_ADMIN' ? (
+					<img src={pencil} alt="imagem de uma caneta" />
+				) : (
+					<MdFavoriteBorder size={24} />
+				)}
 			</Favorites>
 
 			<CardImage>
@@ -44,10 +51,12 @@ export function Card({ data }) {
 				<strong className="price">R$ {price}</strong>
 			</Info>
 
-			<Include>
-				<Counter />
-				<Button title="incluir" onClick={() => console.log(data.id)} />
-			</Include>
+			{user.role === 'ROLE_USER' && (
+				<Include>
+					<Counter />
+					<Button title="incluir" onClick={() => console.log(data.id)} />
+				</Include>
+			)}
 		</Container>
 	)
 }

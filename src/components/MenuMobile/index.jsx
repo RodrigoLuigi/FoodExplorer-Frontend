@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/auth'
+
 import { IoClose } from 'react-icons/io5'
 import { FiSearch } from 'react-icons/fi'
 
@@ -9,6 +12,15 @@ import { ButtonText } from '../ButtonText'
 import { Container, Search } from './styles'
 
 export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
+	const { user, signOut } = useAuth()
+
+	const navigate = useNavigate()
+
+	function handleSignOut() {
+		navigate('/')
+		signOut()
+	}
+
 	useEffect(() => {
 		document.body.style.overflowY = menuIsVisible ? 'hidden' : 'auto'
 	}, [menuIsVisible])
@@ -26,9 +38,16 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 					<Input placeholder="Busque por pratos e ingredientes" type="text" />
 				</Search>
 
-				<div className="signout">
-					<ButtonText title="Sair" />
-				</div>
+				<ul>
+					{user.role === 'ROLE_ADMIN' && (
+						<li>
+							<ButtonText title="Novo prato" />
+						</li>
+					)}
+					<li>
+						<ButtonText title="Sair" onClick={handleSignOut} />
+					</li>
+				</ul>
 			</div>
 		</Container>
 	)

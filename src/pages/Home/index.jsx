@@ -28,7 +28,6 @@ export function Home() {
 		async function fetchCategories() {
 			const response = await api.get(`/categories`)
 			setCategories(response.data)
-			console.log(categories[0])
 		}
 		fetchCategories()
 	}, [])

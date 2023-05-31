@@ -22,9 +22,19 @@ export const Container = styled.header`
 
 		padding: 0 2.3rem;
 
+		> .btn-new-product {
+			max-width: 21.6rem;
+			display: none;
+		}
+
 		@media (min-width: 768px) {
 			.menu {
 				display: none;
+			}
+
+			.btn-new-product {
+				display: block;
+				max-width: 21.6rem;
 			}
 		}
 
@@ -37,9 +47,24 @@ export const Container = styled.header`
 export const Logo = styled.div`
 	display: flex;
 	align-items: center;
+	gap: 8px;
+	margin: 0 auto;
 
 	img {
 		width: clamp(16rem, 10rem + 10vw, 19rem);
+	}
+
+	> span {
+		font-size: 1.2rem;
+		color: ${({ theme }) => theme.COLORS.CAKE_200};
+	}
+
+	@media (min-width: 768px) {
+		flex-direction: column;
+
+		> span {
+			align-self: end;
+		}
 	}
 `
 

@@ -8,16 +8,23 @@ export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	gap: 1.5rem;
 
 	padding: 2.4rem;
 
 	width: clamp(21rem, 18rem + 7vw, 30.4rem);
+	min-height: 29.2rem;
 
 	position: relative;
 
+	@media (min-width: 768px) {
+		height: 390px;
+	}
+
 	@media (min-width: 872px) {
 		width: 30.4rem;
+		height: 462px;
 	}
 `
 
@@ -30,6 +37,11 @@ export const Favorites = styled.button`
 	border: none;
 
 	color: white;
+
+	img {
+		width: 2.4rem;
+		height: 2.4rem;
+	}
 `
 
 export const CardImage = styled.div`
@@ -106,6 +118,10 @@ export const Info = styled.div`
 		.description {
 			display: block;
 		}
+
+		.price {
+			padding-block: 1.1rem;
+		}
 	}
 `
 
@@ -118,12 +134,17 @@ export const Include = styled.div`
 	align-items: center;
 	gap: 1.6rem;
 
+	> button {
+		height: 32px;
+	}
+
 	@media (min-width: 872px) {
 		flex-direction: row;
 		width: auto;
 
 		> button {
-			padding-inline: 2.4rem;
+			width: 9.2rem;
+			height: 4.8rem;
 		}
 
 		svg {

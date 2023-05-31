@@ -11,6 +11,7 @@ import { MdLogout } from 'react-icons/md'
 import { FiSearch } from 'react-icons/fi'
 
 import { Input } from '../Input'
+import { Button } from '../Button'
 import { MenuMobile } from '../MenuMobile'
 
 import { Container, Logo, Search, Orders, Logout } from './styles'
@@ -18,7 +19,7 @@ import { Container, Logo, Search, Orders, Logout } from './styles'
 export function Header({ setSearch }) {
 	const [menuIsVisible, setMenuIsVisible] = useState(false)
 
-	const { signOut } = useAuth()
+	const { user, signOut } = useAuth()
 
 	const navigate = useNavigate()
 
@@ -46,6 +47,7 @@ export function Header({ setSearch }) {
 						src={logo}
 						alt="Hexagono de cor azul com texto Food Explorer do lado direito"
 					/>
+					{user.role === 'ROLE_ADMIN' && <span>admin</span>}
 				</Logo>
 
 				<Search>
@@ -59,13 +61,17 @@ export function Header({ setSearch }) {
 					</div>
 				</Search>
 
-				<Orders>
-					<img src={receipt} size={32} />
-					<span>0</span>
-					<strong>
-						pedidos <span>(0)</span>
-					</strong>
-				</Orders>
+				{user.role === 'ROLE_ADMIN' ? (
+					<Button title="Novo prato" className="btn-new-product" />
+				) : (
+					<Orders>
+						<img src={receipt} size={32} />
+						<span>0</span>
+						<strong>
+							pedidos <span>(0)</span>
+						</strong>
+					</Orders>
+				)}
 
 				<Logout onClick={handleSignOut}>
 					<MdLogout size={32} />

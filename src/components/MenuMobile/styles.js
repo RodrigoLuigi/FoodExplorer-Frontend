@@ -51,14 +51,18 @@ export const Container = styled.div`
 		grid-area: content;
 		padding: 0 2.8rem;
 
-		> .signout {
-			margin-top: 32px;
-			border-bottom: 1px solid #192227;
+		ul {
+			margin-top: 3.2rem;
+			list-style: none;
+		}
 
-			button {
-				font-size: 24px;
-				line-height: 140%;
-			}
+		li {
+			padding: 1rem;
+			border-bottom: 1px solid #192227;
+		}
+
+		span {
+			font-weight: 300;
 		}
 	}
 `
