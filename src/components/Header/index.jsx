@@ -23,6 +23,10 @@ export function Header({ setSearch }) {
 
 	const navigate = useNavigate()
 
+	function handleNewProduct() {
+		navigate(`/product/new`)
+	}
+
 	function handleSignOut() {
 		navigate('/')
 		signOut()
@@ -62,7 +66,11 @@ export function Header({ setSearch }) {
 				</Search>
 
 				{user.role === 'ROLE_ADMIN' ? (
-					<Button title="Novo prato" className="btn-new-product" />
+					<Button
+						title="Novo prato"
+						className="btn-new-product"
+						onClick={handleNewProduct}
+					/>
 				) : (
 					<Orders>
 						<img src={receipt} size={32} />

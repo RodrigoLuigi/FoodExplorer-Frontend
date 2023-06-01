@@ -22,7 +22,7 @@ export function Card({ data }) {
 	const { user } = useAuth()
 
 	function handleDetails(id) {
-		navigate(`/details/${id}`)
+		navigate(`/product/details/${id}`)
 	}
 
 	const convertPrice = Number(data.price / 100)
