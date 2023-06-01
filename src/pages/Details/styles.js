@@ -31,6 +31,12 @@ export const Content = styled.div`
 		gap: 4.2rem;
 		margin: 0 auto;
 		padding: 3.6rem 2.3rem 5.3rem;
+
+		.new-product {
+			width: 13.1rem;
+			height: 4.8rem;
+			align-self: flex-start;
+		}
 	}
 `
 
@@ -104,21 +110,6 @@ export const Info = styled.div`
 			align-items: center;
 			flex-wrap: wrap;
 			gap: 2.4rem;
-
-			span {
-				font-family: var(--ff-heading);
-				font-weight: 500;
-				font-size: 14px;
-
-				height: 3.2rem;
-
-				padding: 4px 8px;
-				border-radius: 5px;
-
-				display: flex;
-				align-items: center;
-				background-color: ${({ theme }) => theme.COLORS.DARK_1000};
-			}
 		}
 	}
 
@@ -198,6 +189,7 @@ export const Include = styled.div`
 			font-size: 1.2rem;
 			color: ${({ theme }) => theme.COLORS.LIGHT_100};
 			white-space: nowrap;
+			font-weight: 500;
 		}
 	}
 

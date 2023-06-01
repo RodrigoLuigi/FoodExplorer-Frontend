@@ -1,6 +1,8 @@
 import { api } from '../../services/api'
 import { useState, useEffect } from 'react'
 
+import { useAuth } from '../../hooks/auth'
+
 import { useNavigate, useParams } from 'react-router-dom'
 
 import dishe from '../../assets/dishe.png'
@@ -10,23 +12,26 @@ import { FiPlus, FiMinus, FiChevronLeft } from 'react-icons/fi'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import { Button } from '../../components/Button'
 import { ButtonText } from '../../components/ButtonText'
+import { Ingredient } from '../../components/Ingredient'
+import { Button } from '../../components/Button'
 
 import { Container, Content, ProductNote, Image, Include, Info } from './styles'
 
 export function Details() {
 	const [data, setData] = useState({})
+	const [count, setCount] = useState(1)
+
+	let quantity = String(count).padStart(2, '0')
 
 	const params = useParams()
 	const navigate = useNavigate()
 
+	const { user } = useAuth()
+
 	function handleBack() {
 		navigate(-1)
 	}
-
-	const [count, setCount] = useState(1)
-	let quantity = String(count).padStart(2, '0')
 
 	function increaseCount() {
 		if (count < 5) {
@@ -43,6 +48,9 @@ export function Details() {
 	const imageUrl = data.imagePath
 		? `${api.defaults.baseURL}/files/${data.imagePath}`
 		: dishe
+
+	const convertPrice = Number(data.price / 100) * quantity
+	const price = String(convertPrice).replace('.', ',')
 
 	useEffect(() => {
 		async function fetchProduct() {
@@ -67,7 +75,7 @@ export function Details() {
 
 					<ProductNote>
 						<Image>
-							<img src={imageUrl} alt="" />
+							<img src={imageUrl} alt={`Imagem do produto ${data.name}`} />
 						</Image>
 
 						<Info>
@@ -76,33 +84,38 @@ export function Details() {
 								<p>{data.description}</p>
 
 								<div className="ingredients">
-									<span>alface</span>
-									<span>cebola</span>
-									<span>pão naan</span>
-									<span>pepino</span>
-									<span>rabanete</span>
-									<span>tomate</span>
+									{data.productIngredients &&
+										data.productIngredients.map((ingredient) => (
+											<Ingredient
+												title={ingredient.name}
+												key={String(ingredient.id)}
+											/>
+										))}
 								</div>
 							</div>
 
-							<Include>
-								<div className="count">
-									<button type="button" onClick={decreaseCount}>
-										<FiMinus size={27} />
-									</button>
-									<span>{quantity}</span>
-									<button type="button" onClick={increaseCount}>
-										<FiPlus size={27} />
-									</button>
-								</div>
+							{user.role === 'ROLE_ADMIN' ? (
+								<Button title="Editar prato" className="new-product" />
+							) : (
+								<Include>
+									<div className="count">
+										<button type="button" onClick={decreaseCount}>
+											<FiMinus size={27} />
+										</button>
+										<span>{quantity}</span>
+										<button type="button" onClick={increaseCount}>
+											<FiPlus size={27} />
+										</button>
+									</div>
 
-								<button className="btn-order">
-									<img src={receipt} />
-									<strong>
-										incluir &middot; R$<span>25,00</span>
-									</strong>
-								</button>
-							</Include>
+									<button className="btn-order">
+										<img src={receipt} />
+										<strong>
+											incluir &middot; R$<span>{price}</span>
+										</strong>
+									</button>
+								</Include>
+							)}
 						</Info>
 					</ProductNote>
 				</Content>

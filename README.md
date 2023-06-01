@@ -26,3 +26,11 @@ npm install react-slick
 - refactor: ajust crousel implementation and organization in Home page
 - refactor: adjust Details page
 - feat: add localStorage in auth Hook
+
+- home - remove console.log
+- feat: create handleSignOut , implements navigate, import useAuth, render admin component on MenuMobile
+- style: implements custom list on MenuMobile
+- feat: implements render admin component on Header
+- style: refactor components style on Header
+- feat: implements render admin component on Card
+- style: refactor components style on Card
