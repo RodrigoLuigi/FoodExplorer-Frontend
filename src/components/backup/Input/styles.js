@@ -9,7 +9,11 @@ export const Container = styled.div`
 
 	text-align: left;
 
-	> input {
+	label {
+		color: ${({ theme }) => theme.COLORS.LIGHT_400};
+	}
+
+	input {
 		width: 100%;
 		height: 4.8rem;
 

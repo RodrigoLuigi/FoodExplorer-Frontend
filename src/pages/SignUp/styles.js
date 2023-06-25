@@ -53,6 +53,16 @@ export const Form = styled.form`
 		text-align: center;
 	}
 
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		label {
+			color: ${({ theme }) => theme.COLORS.LIGHT_400};
+		}
+	}
+
 	> a {
 		font-size: 1.4rem;
 		line-height: 2.4rem;

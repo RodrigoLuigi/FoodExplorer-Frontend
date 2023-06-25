@@ -16,6 +16,10 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 
 	const navigate = useNavigate()
 
+	function handleNewProduct() {
+		navigate(`/product/new`)
+	}
+
 	function handleSignOut() {
 		navigate('/')
 		signOut()
@@ -41,7 +45,7 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 				<ul>
 					{user.role === 'ROLE_ADMIN' && (
 						<li>
-							<ButtonText title="Novo prato" />
+							<ButtonText title="Novo prato" onClick={handleNewProduct} />
 						</li>
 					)}
 					<li>

@@ -26,7 +26,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, button, textarea {
+  body, input, button, textarea, select {
     font-family: var(--ff-body);
     font-size: 1.6rem;
     outline: none;

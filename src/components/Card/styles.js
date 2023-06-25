@@ -28,19 +28,21 @@ export const Container = styled.div`
 	}
 `
 
-export const Favorites = styled.button`
+export const Favorites = styled.div`
 	position: absolute;
 	top: 16px;
 	right: 16px;
 
-	background-color: transparent;
-	border: none;
+	> button {
+		background-color: transparent;
+		border: none;
 
-	color: white;
+		color: white;
 
-	img {
-		width: 2.4rem;
-		height: 2.4rem;
+		img {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
 	}
 `
 

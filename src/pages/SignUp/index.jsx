@@ -47,32 +47,38 @@ export function SignUp() {
 			<Form>
 				<h1>Crie sua conta</h1>
 
-				<Input
-					placeholder="Exemplo: Maria da Silva"
-					type="text"
-					label="Seu nome"
-					id="name"
-					className="input-signup"
-					onChange={(e) => setName(e.target.value)}
-				/>
+				<div>
+					<label htmlFor="name">Seu nome</label>
+					<Input
+						placeholder="Exemplo: Maria da Silva"
+						type="text"
+						id="name"
+						className="input-signup"
+						onChange={(e) => setName(e.target.value)}
+					/>
+				</div>
 
-				<Input
-					placeholder="Exemplo: exemplo@exemplo.com"
-					type="email"
-					label="Email"
-					id="email"
-					className="input-signup"
-					onChange={(e) => setEmail(e.target.value)}
-				/>
+				<div>
+					<label htmlFor="email">Email</label>
+					<Input
+						placeholder="Exemplo: exemplo@exemplo.com"
+						type="email"
+						id="email"
+						className="input-signup"
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</div>
 
-				<Input
-					placeholder="No mínimo 6 caracteres "
-					type="password"
-					label="Senha"
-					id="password"
-					className="input-signup"
-					onChange={(e) => setPassword(e.target.value)}
-				/>
+				<div>
+					<label htmlFor="password">Senha</label>
+					<Input
+						placeholder="No mínimo 6 caracteres "
+						type="password"
+						id="password"
+						className="input-signup"
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+				</div>
 
 				<Button
 					disabled={loading}

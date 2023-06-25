@@ -25,14 +25,20 @@ export function Card({ data }) {
 		navigate(`/product/details/${id}`)
 	}
 
+	function handleEditProduct(id) {
+		navigate(`/product/edit/${id}`)
+	}
+
 	const convertPrice = Number(data.price / 100)
-	const price = String(convertPrice).replace('.', ',')
+	const price = String(convertPrice).replace('.', ',').padEnd(5, 0)
 
 	return (
 		<Container>
 			<Favorites>
 				{user.role === 'ROLE_ADMIN' ? (
-					<img src={pencil} alt="imagem de uma caneta" />
+					<button type="buton" onClick={() => handleEditProduct(data.id)}>
+						<img src={pencil} alt="imagem de uma caneta" />
+					</button>
 				) : (
 					<MdFavoriteBorder size={24} />
 				)}

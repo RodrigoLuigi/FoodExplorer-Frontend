@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { api } from '../../services/api'
 
@@ -16,18 +16,20 @@ import { FiChevronDown, FiChevronLeft, FiPlus, FiUpload } from 'react-icons/fi'
 
 import { Container, Content, Form } from './styles'
 
-export function NewProduct() {
+export function EditProduct() {
 	const [categoryData, setCategoryData] = useState([])
 	const [ingredientsData, setIngredientsData] = useState([])
 
-	const [selectedIngredient, setSelectedIngredient] = useState('')
+	const [selectedIngredient, setSelectedIngredient] = useState()
 
-	const [name, setName] = useState('')
-	const [price, setPrice] = useState('')
+	const [name, setName] = useState()
+	const [price, setPrice] = useState()
 	const [category, setCategory] = useState(1)
 	const [ingredients, setIngredients] = useState([])
-	const [productImage, setProductImage] = useState(null)
-	const [description, setDescription] = useState('')
+	const [productImageFile, setProductImageFile] = useState(null)
+	const [description, setDescription] = useState()
+
+	const params = useParams()
 
 	const navigate = useNavigate()
 
@@ -59,57 +61,36 @@ export function NewProduct() {
 		const price = event.target.value
 		const updatedPrice = price.split('.').join('')
 		setPrice(updatedPrice)
-		console.log(typeof updatedPrice)
 	}
 
-	async function handleNewProduct() {
-		if (ingredients.length <= 0) {
-			return alert('Adicione ao menos 1 ingredient!')
-		}
+	async function handleUpdateProduct() {
 		const ingredientsId = ingredients.map((ingredient) => ingredient.id)
 
-		await api
-			.post('/products', {
-				name,
-				description,
-				price,
-				category_id: category,
-				ingredients: ingredientsId
-			})
-			.then((response) => {
-				console.log('Produto enviado com sucesso:', response.data)
-				navigate(-1)
-			})
-			.catch((error) => {
-				if (error.response) {
-					alert(error.response.data.message)
-				} else {
-					alert('Erro ao enviar o produto:', error)
-				}
-			})
+		if (productImageFile) {
+			const fileUploadForm = new FormData()
+			fileUploadForm.append('productImage', productImageFile)
 
-		/* const formData = new FormData()
-		formData.append('name', name)
-		formData.append('description', description)
-		formData.append('price', price)
-		formData.append('category_id', category)
-		for (let i = 0; i < ingredients.length; i++) {
-			formData.append('ingredients', ingredients[i])
+			const response = await api.patch(
+				`/products/image/${params.id}`,
+				fileUploadForm
+			)
 		}
-
-		await api
-			.post('/products', formData)
-			.then((response) => {
-				console.log('Produto enviado com sucesso:', response.data)
+		try {
+			await api.put(`/products/${params.id}`, {
+				name,
+				category_id: category,
+				ingredients: ingredientsId,
+				price,
+				description
 			})
-			.catch((error) => {
-				console.error('Erro ao enviar o produto:', error)
-			})
-
-		console.log('Dados do FormData:')
-		for (const [key, value] of formData.entries()) {
-			console.log(`${key}: ${value}`)
-		} */
+			alert('Produto atualizado.')
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possivel atualizar o produto.')
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -156,7 +137,7 @@ export function NewProduct() {
 									type="file"
 									name="product-img"
 									id="product-img"
-									onChange={(e) => setProductImage(e.target.files[0])}
+									onChange={(e) => setProductImageFile(e.target.files[0])}
 								/>
 							</div>
 
@@ -254,7 +235,7 @@ export function NewProduct() {
 								/>
 							</div>
 						</div>
-						<Button title="Adicionar Prato" onClick={handleNewProduct} />
+						<Button title="Adicionar Prato" onClick={handleUpdateProduct} />
 					</Form>
 				</Content>
 			</main>
