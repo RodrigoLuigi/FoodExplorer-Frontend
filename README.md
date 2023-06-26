@@ -11,6 +11,8 @@
 
 🔗 **Deploy** -> <a hred="https://foodexplorer-web.netlify.app/" target="_blank">https://foodexplorer-web.netlify.app/</a>
 
+<br>
+
 ## Screenshots
 
 <div align="center">
