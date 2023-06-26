@@ -29,8 +29,19 @@ export function Details() {
 
 	const { user } = useAuth()
 
+	const imageUrl = data.imagePath
+		? `${api.defaults.baseURL}/files/${data.imagePath}`
+		: dishe
+
+	const convertPrice = Number(data.price / 100) * quantity
+	const price = String(convertPrice).replace('.', ',')
+
 	function handleBack() {
 		navigate(-1)
+	}
+
+	function handleEditProduct() {
+		navigate(`/product/edit/${params.id}`)
 	}
 
 	function increaseCount() {
@@ -44,13 +55,6 @@ export function Details() {
 			setCount(count - 1)
 		}
 	}
-
-	const imageUrl = data.imagePath
-		? `${api.defaults.baseURL}/files/${data.imagePath}`
-		: dishe
-
-	const convertPrice = Number(data.price / 100) * quantity
-	const price = String(convertPrice).replace('.', ',')
 
 	useEffect(() => {
 		async function fetchProduct() {
@@ -95,7 +99,11 @@ export function Details() {
 							</div>
 
 							{user.role === 'ROLE_ADMIN' ? (
-								<Button title="Editar prato" className="new-product" />
+								<Button
+									title="Editar prato"
+									className="new-product"
+									onClick={handleEditProduct}
+								/>
 							) : (
 								<Include>
 									<div className="count">

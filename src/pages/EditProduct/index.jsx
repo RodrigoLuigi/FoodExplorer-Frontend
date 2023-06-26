@@ -20,14 +20,14 @@ export function EditProduct() {
 	const [categoryData, setCategoryData] = useState([])
 	const [ingredientsData, setIngredientsData] = useState([])
 
-	const [selectedIngredient, setSelectedIngredient] = useState()
+	const [selectedIngredient, setSelectedIngredient] = useState(null)
 
-	const [name, setName] = useState()
-	const [price, setPrice] = useState()
-	const [category, setCategory] = useState(1)
+	const [name, setName] = useState('')
+	const [price, setPrice] = useState('')
+	const [category, setCategory] = useState()
 	const [ingredients, setIngredients] = useState([])
 	const [productImageFile, setProductImageFile] = useState(null)
-	const [description, setDescription] = useState()
+	const [description, setDescription] = useState('')
 
 	const params = useParams()
 
@@ -94,10 +94,29 @@ export function EditProduct() {
 	}
 
 	useEffect(() => {
+		async function fetchProduct() {
+			const response = await api.get(`/products/${params.id}`)
+
+			const { name, price, category_id, description, productIngredients } =
+				response.data
+
+			setName(name)
+			setPrice(price)
+			setIngredients([])
+			setCategory(category_id)
+			setDescription(description)
+			setIngredients(productIngredients)
+		}
+
+		fetchProduct()
+	}, [])
+
+	useEffect(() => {
 		async function fetchIngredients() {
 			const response = await api.get('/ingredients')
 			setIngredientsData(response.data)
 		}
+		window.scrollTo(0, 0)
 
 		fetchIngredients()
 	}, [])
@@ -124,14 +143,16 @@ export function EditProduct() {
 					/>
 
 					<Form>
-						<h1>Novo Prato</h1>
+						<h1>Editar Prato</h1>
 
 						<div className="form-wrapper">
 							<div className="form-item image">
 								<label htmlFor="product-img">Imagem do Prato</label>
 								<label htmlFor="product-img">
 									<FiUpload size={24} />
-									Selecione Imagem
+									{productImageFile
+										? productImageFile.name
+										: 'Selecione Imagem'}
 								</label>
 								<Input
 									type="file"
@@ -149,6 +170,7 @@ export function EditProduct() {
 									name="name"
 									id="name"
 									onChange={(e) => setName(e.target.value)}
+									value={name}
 								/>
 							</div>
 
@@ -156,7 +178,7 @@ export function EditProduct() {
 								<label htmlFor="category">Category</label>
 								<div>
 									<select
-										value={category.id}
+										value={category}
 										name="category"
 										id="category"
 										onChange={(e) => setCategory(e.target.value)}
@@ -222,6 +244,7 @@ export function EditProduct() {
 									name="price"
 									id="price"
 									onChange={handleChangePrice}
+									value={price / 100}
 								/>
 							</div>
 
@@ -232,10 +255,11 @@ export function EditProduct() {
 									name="description"
 									id="description"
 									onChange={(e) => setDescription(e.target.value)}
+									value={description}
 								/>
 							</div>
 						</div>
-						<Button title="Adicionar Prato" onClick={handleUpdateProduct} />
+						<Button title="Salvar Alterações" onClick={handleUpdateProduct} />
 					</Form>
 				</Content>
 			</main>
