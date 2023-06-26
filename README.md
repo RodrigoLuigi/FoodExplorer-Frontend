@@ -24,7 +24,7 @@
 
 ## <img id="sobre" src="https://imgur.com/VhTBbHg.png" alt="imagem de um notebook" align="center" width="30px"> _**O que desenvolvemos neste Projeto?**_
 
-📌 FoodExplorer é uma aplicação de um cardápio digital para um restaurante fictício, utilizando as teconologias aprendidas no Explorer, simulando um restaurante de acordo com o layout disponibilizado no Figma.
+📌 FoodExplorer é uma aplicação de um cardápio digital para um restaurante fictício. Uma aplicação de ponta a ponta com front-end e back-end utilizando as teconologias aprendidas no Explorer, simulando um restaurante de acordo com o layout disponibilizado no Figma.
 
 Tecnologias usadas: HTML, CSS, JavaScript, Node.js, React.js.
 
