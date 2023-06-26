@@ -9,6 +9,8 @@
   <a href="https://github.com/RodrigoLuigi" target="_blank">Author</a>
 </p>
 
+🔗 [Deploy](https://foodexplorer-web.netlify.app/)
+
 ## Screenshots
 
 <div align="center">
