@@ -57,7 +57,7 @@ _**As seguintes bibliotecas foram utilizadas neste projeto:**_
 
 ## :checkered_flag: Iniciando
 
-<h2>Inicializando aplicação Back-end</h2>
+### Inicializando aplicação Back-end
 
 ```bash
 # Clone este projeto
@@ -81,7 +81,7 @@ $ npm run dev
 # O Server irá inicializar em http://localhost:3333
 ```
 
-<h2>Inicializando aplicação Front-end</h2>
+### Inicializando aplicação Front-end
 
 ```bash
 # Clone este projeto
