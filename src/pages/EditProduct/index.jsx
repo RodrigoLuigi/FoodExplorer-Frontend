@@ -84,12 +84,26 @@ export function EditProduct() {
 				description
 			})
 			alert('Produto atualizado.')
+
+			navigate(-1)
 		} catch (error) {
 			if (error.response) {
 				alert(error.response.data.message)
 			} else {
 				alert('Não foi possivel atualizar o produto.')
 			}
+		}
+	}
+
+	async function handleDeleteProduct() {
+		try {
+			await api.delete(`/products/${params.id}`)
+
+			alert('Prato excluido com sucesso!')
+
+			navigate(-1)
+		} catch (error) {
+			alert('Ocorreu um erro ao tentar excluir o prato!', error)
 		}
 	}
 
@@ -259,7 +273,12 @@ export function EditProduct() {
 								/>
 							</div>
 						</div>
-						<Button title="Salvar Alterações" onClick={handleUpdateProduct} />
+
+						<div className="submit-buttons">
+							<Button title="Excluir Prato" onClick={handleDeleteProduct} />
+
+							<Button title="Salvar Alterações" onClick={handleUpdateProduct} />
+						</div>
 					</Form>
 				</Content>
 			</main>

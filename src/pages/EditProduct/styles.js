@@ -188,9 +188,20 @@ export const Form = styled.form`
 		color: ${({ theme }) => theme.COLORS.LIGHT_300};
 	}
 
-	> button {
-		width: 200px;
-		justify-self: flex-end;
+	.submit-buttons {
+		width: 100%;
+		display: flex;
+		gap: 3.2rem;
+		justify-content: flex-end;
+
+		button {
+			background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+			max-width: 200px;
+
+			:first-child {
+				background-color: ${({ theme }) => theme.COLORS.DARK_900};
+			}
+		}
 	}
 
 	@media (min-width: 768px) {
