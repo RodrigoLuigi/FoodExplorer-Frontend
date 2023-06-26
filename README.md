@@ -47,7 +47,7 @@ _**As seguintes bibliotecas foram utilizadas neste projeto:**_
 - [Styled-Components]()
 - [Axios]()
 - [react-icons]()
-- [react-slick-crousel]
+- [react-slick-crousel]()
 
 ## 📝 Requisitos
 
@@ -57,16 +57,46 @@ _**As seguintes bibliotecas foram utilizadas neste projeto:**_
 
 ## :checkered_flag: Iniciando
 
+<h2>Inicializando aplicação Back-end</h2>
+
+```bash
+# Clone este projeto
+$ git clone https://github.com/RodrigoLuigi/FoodExplorer-API.git
+
+# Acesse o projeto
+$ cd FoodExplorer-API
+
+# Instale as dependências
+$ npm install
+
+# Inicializando Migrations
+$ npm run migrate
+
+# Inicializando projeto
+$ npm start
+
+# Inicializando projeto modo Desenvolvimento
+$ npm run dev
+
+# O Server irá inicializar em http://localhost:3333
+```
+
+<h2>Inicializando aplicação Front-end</h2>
+
 ```bash
 # Clone este projeto
 $ git clone https://github.com/RodrigoLuigi/FoodExplorer-Frontend.git
+
 # Acesse o projeto
 $ cd FoodExplorer-Frontend
+
 # Instale as dependências
 $ npm install
+
 # Execute o projeto com npm
 $ npm run dev
-# O Server irá inicializar em http://localhost:3333
+
+# O Server irá inicializar em http://localhost:5173
 ```
 
 &#xa0;
