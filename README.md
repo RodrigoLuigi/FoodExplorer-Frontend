@@ -9,7 +9,7 @@
   <a href="https://github.com/RodrigoLuigi" target="_blank">Author</a>
 </p>
 
-🔗 **Deploy** -><a hred="https://foodexplorer-web.netlify.app/" target="_blank">https://foodexplorer-web.netlify.app/</a>
+🔗 **Deploy** -> <a hred="https://foodexplorer-web.netlify.app/" target="_blank">https://foodexplorer-web.netlify.app/</a>
 
 ## Screenshots
 
