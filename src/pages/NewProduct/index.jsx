@@ -77,7 +77,7 @@ export function NewProduct() {
 				ingredients: ingredientsId
 			})
 			.then((response) => {
-				console.log('Produto enviado com sucesso:', response.data)
+				alert('Produto criado com sucesso!')
 				navigate(-1)
 			})
 			.catch((error) => {
