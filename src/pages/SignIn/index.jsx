@@ -12,14 +12,16 @@ import { Button } from '../../components/Button'
 import { Container, Form, Logo } from './styles'
 
 export function SignIn() {
-	const [loading, setLoading] = useState(false)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const { signIn, user } = useAuth()
+	const { signIn, loading, setLoading } = useAuth()
 
 	function handleSignIn() {
-		signIn({ email, password })
+		if ((email, password)) {
+			signIn({ email, password })
+			setLoading(true)
+		}
 	}
 
 	return (

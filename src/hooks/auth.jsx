@@ -6,9 +6,11 @@ export const AuthContext = createContext({})
 
 function AuthProvider({ children }) {
 	const [data, setData] = useState({})
+	const [loading, setLoading] = useState(false)
 
 	async function signIn({ email, password }) {
 		try {
+			setLoading(true)
 			const response = await api.post('/sessions', { email, password })
 			const { user, token } = response.data
 
@@ -20,9 +22,12 @@ function AuthProvider({ children }) {
 		} catch (error) {
 			if (error.response) {
 				alert(error.response.data.message)
+				setLoading(false)
 			} else {
 				alert('Não foi possível fazer o login!')
 			}
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -30,6 +35,7 @@ function AuthProvider({ children }) {
 		localStorage.removeItem('@foodexplorer:user')
 		localStorage.removeItem('@foodexplorer:token')
 		setData({})
+		setLoading(false)
 	}
 
 	useEffect(() => {
@@ -46,7 +52,9 @@ function AuthProvider({ children }) {
 	}, [])
 
 	return (
-		<AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
+		<AuthContext.Provider
+			value={{ signIn, signOut, loading, setLoading, user: data.user }}
+		>
 			{children}
 		</AuthContext.Provider>
 	)
