@@ -24,12 +24,15 @@ password: 111xxx
 ## Screenshots
 
 <div align="center">
-  <img src="" width="270px" height="200px">
-  <img src="" width="270px" height="200px">
-  <img src="" width="270px" height="200px">
-  <img src="" width="270px" height="200px">
-  <img src="" width="270px" height="200px">
-  <img src="" width="270px" height="200px">
+  <img src="./public/foodexplorer-1.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-2.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-3.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-4.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-5.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-6.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-7.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-8.png" width="270px" height="200px">
+  <img src="./public/foodexplorer-9.png" width="270px" height="200px">
 </div>
 
 <br><hr>
