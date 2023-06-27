@@ -13,6 +13,12 @@
 
 🔗 **Deploy** -> <a hred="https://foodexplorer-web.netlify.app/" target="_blank">https://foodexplorer-web.netlify.app/</a>
 
+```
+Login Admin
+email: adm@admin.com
+password: 111xxx
+```
+
 <br>
 
 ## Screenshots
