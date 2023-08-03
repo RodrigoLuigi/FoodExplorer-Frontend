@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import { NumericFormat } from 'react-number-format'
 
 import { api } from '../../services/api'
 
@@ -57,9 +58,10 @@ export function NewProduct() {
 
 	function handleChangePrice(event) {
 		const price = event.target.value
-		const updatedPrice = price.split('.').join('')
-		setPrice(updatedPrice)
-		console.log(typeof updatedPrice)
+
+		const formattedPrice = price.replace(/\s/g, '').replace('R$', '')
+
+		setPrice(formattedPrice)
 	}
 
 	async function handleNewProduct() {
@@ -235,10 +237,12 @@ export function NewProduct() {
 
 							<div className="form-item price">
 								<label htmlFor="price">Preço</label>
-								<Input
-									type="number"
+								<NumericFormat
+									thousandSeparator="."
+									decimalSeparator=","
+									prefix="R$ "
 									placeholder="R$ 00,00"
-									name="price"
+									format="###.###,00"
 									id="price"
 									onChange={handleChangePrice}
 								/>

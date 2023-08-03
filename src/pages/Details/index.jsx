@@ -22,19 +22,16 @@ export function Details() {
 	const [data, setData] = useState({})
 	const [count, setCount] = useState(1)
 
-	let quantity = String(count).padStart(2, '0')
+	const { user } = useAuth()
 
 	const params = useParams()
 	const navigate = useNavigate()
 
-	const { user } = useAuth()
+	let quantity = String(count).padStart(2, '0')
 
 	const imageUrl = data.imagePath
 		? `${api.defaults.baseURL}/files/${data.imagePath}`
 		: dishe
-
-	const convertPrice = Number(data.price / 100) * quantity
-	const price = String(convertPrice).replace('.', ',')
 
 	function handleBack() {
 		navigate(-1)
@@ -54,6 +51,25 @@ export function Details() {
 		if (count > 1) {
 			setCount(count - 1)
 		}
+	}
+
+	function formatPrice(price) {
+		const withoutThousandSeparator = price.replace(/\./g, '')
+
+		const formattedPrice = withoutThousandSeparator.replace(',', '.')
+
+		const priceNumber = parseFloat(formattedPrice)
+
+		if (isNaN(priceNumber)) {
+			throw new Error('Formato de número inválido.')
+		}
+
+		const formattedPriceString = (priceNumber * count).toLocaleString('pt-BR', {
+			style: 'currency',
+			currency: 'BRL'
+		})
+
+		return formattedPriceString
 	}
 
 	useEffect(() => {
@@ -119,7 +135,8 @@ export function Details() {
 									<button className="btn-order">
 										<img src={receipt} />
 										<strong>
-											incluir &middot; R$<span>{price}</span>
+											incluir &middot;{' '}
+											<span>{data.price ? formatPrice(data.price) : ''}</span>
 										</strong>
 									</button>
 								</Include>

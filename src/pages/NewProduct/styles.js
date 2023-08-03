@@ -98,6 +98,15 @@ export const Form = styled.form`
 		background-color: ${({ theme }) => theme.COLORS.DARK_800};
 	}
 
+	.price input {
+		width: 100%;
+		height: 4.8rem;
+		color: rgb(255, 255, 255);
+		padding: 1.2rem 1.4rem;
+		border: none;
+		border-radius: 8px;
+	}
+
 	.category div {
 		position: relative;
 		display: inline-block;

@@ -14,12 +14,13 @@ import { Counter } from '../Counter'
 import { Container, Favorites, CardImage, Info, Include } from './styles'
 
 export function Card({ data }) {
+	const { user } = useAuth()
+
+	const navigate = useNavigate()
+
 	const imageUrl = data.imagePath
 		? `${api.defaults.baseURL}/files/${data.imagePath}`
 		: avatar
-
-	const navigate = useNavigate()
-	const { user } = useAuth()
 
 	function handleDetails(id) {
 		navigate(`/product/details/${id}`)
@@ -28,9 +29,6 @@ export function Card({ data }) {
 	function handleEditProduct(id) {
 		navigate(`/product/edit/${id}`)
 	}
-
-	const convertPrice = Number(data.price / 100)
-	const price = String(convertPrice).replace('.', ',').padEnd(5, 0)
 
 	return (
 		<Container>
@@ -54,7 +52,7 @@ export function Card({ data }) {
 					<span>&gt;</span>
 				</button>
 				<p className="description">{data.description}</p>
-				<strong className="price">R$ {price}</strong>
+				<strong className="price">R$ {data.price}</strong>
 			</Info>
 
 			{user.role === 'ROLE_USER' && (
