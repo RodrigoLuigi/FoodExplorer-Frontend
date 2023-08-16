@@ -44,6 +44,10 @@ export const Favorites = styled.div`
 			height: 2.4rem;
 		}
 	}
+
+	.favorite-icon {
+		fill: red;
+	}
 `
 
 export const CardImage = styled.div`
