@@ -27,6 +27,11 @@ export const Container = styled.header`
 			display: none;
 		}
 
+		> .btn-favorites {
+			white-space: nowrap;
+			display: none;
+		}
+
 		@media (min-width: 768px) {
 			.menu {
 				display: none;
@@ -35,6 +40,10 @@ export const Container = styled.header`
 			.btn-new-product {
 				display: block;
 				max-width: 21.6rem;
+			}
+
+			.btn-favorites {
+				display: block;
 			}
 		}
 

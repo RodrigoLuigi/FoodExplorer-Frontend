@@ -3,6 +3,7 @@ import { Home } from '../pages/Home'
 import { Details } from '../pages/Details'
 import { NewProduct } from '../pages/NewProduct'
 import { EditProduct } from '../pages/EditProduct'
+import { Favorites } from '../pages/Favorites'
 
 export function AppRoutes() {
 	return (
@@ -11,6 +12,7 @@ export function AppRoutes() {
 			<Route path="/product/details/:id" element={<Details />} />
 			<Route path="/product/new" element={<NewProduct />} />
 			<Route path="/product/edit/:id" element={<EditProduct />} />
+			<Route path="/favorites" element={<Favorites />} />
 		</Routes>
 	)
 }

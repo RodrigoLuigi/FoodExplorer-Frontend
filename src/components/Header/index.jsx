@@ -15,6 +15,7 @@ import { Button } from '../Button'
 import { MenuMobile } from '../MenuMobile'
 
 import { Container, Logo, Search, Orders, Logout } from './styles'
+import { ButtonText } from '../ButtonText'
 
 export function Header({ setSearch }) {
 	const [menuIsVisible, setMenuIsVisible] = useState(false)
@@ -30,6 +31,10 @@ export function Header({ setSearch }) {
 	function handleSignOut() {
 		navigate('/')
 		signOut()
+	}
+
+	function handleFavorites() {
+		navigate('/favorites')
 	}
 
 	return (
@@ -64,6 +69,12 @@ export function Header({ setSearch }) {
 						/>
 					</div>
 				</Search>
+
+				<ButtonText
+					title="Meus Favoritos"
+					className="btn-favorites"
+					onClick={handleFavorites}
+				/>
 
 				{user.role === 'ROLE_ADMIN' ? (
 					<Button

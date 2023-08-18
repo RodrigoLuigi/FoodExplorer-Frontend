@@ -25,6 +25,10 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 		signOut()
 	}
 
+	function handleFavorites() {
+		navigate('/favorites')
+	}
+
 	useEffect(() => {
 		document.body.style.overflowY = menuIsVisible ? 'hidden' : 'auto'
 	}, [menuIsVisible])
@@ -48,6 +52,9 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 							<ButtonText title="Novo prato" onClick={handleNewProduct} />
 						</li>
 					)}
+					<li>
+						<ButtonText title="Meus Favoritos" onClick={handleFavorites} />
+					</li>
 					<li>
 						<ButtonText title="Sair" onClick={handleSignOut} />
 					</li>
