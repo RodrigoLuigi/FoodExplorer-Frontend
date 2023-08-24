@@ -21,17 +21,38 @@ export function Favorites() {
 		navigate(-1)
 	}
 
+	function handleDetails(id) {
+		navigate(`/product/details/${id}`)
+	}
+
+	async function handleRemoveFavorite(id) {
+		try {
+			await api.delete(`/favorites/${id}`)
+			alert('Produto removido dos favoritos')
+			setFavorites((prevState) =>
+				prevState.filter((favorite) => favorite.product_id !== id)
+			)
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Erro ao remover o favorito:', error)
+			}
+		}
+	}
+
 	useEffect(() => {
 		async function fetchFavorites() {
-			const response = await api
-				.get('/favorites')
-				.then((response) => {
-					setFavorites(response.data)
-					console.log(response.data)
-				})
-				.catch((error) => {
-					console.error(error)
-				})
+			try {
+				const response = await api.get('/favorites')
+				setFavorites(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Erro ao buscar favoritos:', error)
+				}
+			}
 		}
 		fetchFavorites()
 	}, [])
@@ -61,8 +82,18 @@ export function Favorites() {
 									</CardImage>
 
 									<Info>
-										<h2>{favorite.name}</h2>
-										<ButtonText title="Remover dos Favoritos" />
+										<button
+											className="btn-details"
+											type="button"
+											onClick={() => handleDetails(favorite.product_id)}
+										>
+											<h2 className="title">{favorite.name}</h2>
+											<span>&gt;</span>
+										</button>
+										<ButtonText
+											title="Remover dos Favoritos"
+											onClick={() => handleRemoveFavorite(favorite.product_id)}
+										/>
 									</Info>
 								</div>
 							))}

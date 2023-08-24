@@ -16,7 +16,7 @@ import { Counter } from '../Counter'
 import { Container, Favorites, CardImage, Info, Include } from './styles'
 
 export function Card({ data }) {
-	const [isFavorite, setIsFavorite] = useState(false)
+	const [isFavorite, setIsFavorite] = useState(!!data.is_favorite)
 
 	const { user } = useAuth()
 
@@ -34,46 +34,39 @@ export function Card({ data }) {
 		navigate(`/product/edit/${id}`)
 	}
 
-	async function handleChangeFavorite() {
-		setIsFavorite((prevIsFavorite) => !prevIsFavorite)
+	async function toggleFavoriteStatus() {
+		const newIsFavorite = !isFavorite
+		setIsFavorite(newIsFavorite)
 
 		try {
-			if (!isFavorite) {
-				alert('adicionando favoritos')
-				await api.post('/favorites', {
-					user_id: user.id,
-					product_id: data.id
-				})
+			if (newIsFavorite) {
+				await addProductToFavorites(user.id, data.id)
 			} else {
-				alert('removendo favoritos')
-				await api.delete(`/favorites/${data.id}`)
+				await removeProductFromFavorites(data.id)
 			}
 		} catch (error) {
-			console.error(error)
+			handleFavoriteError(error)
 		}
 	}
 
-	useEffect(() => {
-		async function fetchUserFavorites() {
-			await api
-				.get('/favorites')
-				.then((response) => {
-					const favoriteIds = response.data.map(
-						(favorite) => favorite.product_id
-					)
-					setIsFavorite(favoriteIds.includes(data.id))
-				})
-				.catch((error) => {
-					if (error.response) {
-						alert(error.response.data.message)
-					} else {
-						alert('Erro ao buscar o favoritos:', error)
-					}
-				})
-		}
+	async function addProductToFavorites(user_id, product_id) {
+		await api.post('/favorites', {
+			user_id,
+			product_id
+		})
+	}
 
-		fetchUserFavorites()
-	}, [])
+	async function removeProductFromFavorites(product_id) {
+		await api.delete(`/favorites/${product_id}`)
+	}
+
+	function handleFavoriteError(error) {
+		if (error.response) {
+			alert(error.response.data.message)
+		} else {
+			alert('Erro ao gerenciar favorito:', error)
+		}
+	}
 
 	return (
 		<Container>
@@ -83,7 +76,7 @@ export function Card({ data }) {
 						<img src={pencil} alt="imagem de uma caneta" />
 					</button>
 				) : (
-					<button onClick={handleChangeFavorite}>
+					<button onClick={toggleFavoriteStatus}>
 						{isFavorite ? (
 							<MdFavorite className="favorite-icon" size={24} />
 						) : (

@@ -111,7 +111,7 @@ export const Search = styled.div`
 	}
 
 	@media (min-width: 1060px) {
-		padding: 0 9.9rem;
+		padding: 0 8.9rem;
 	}
 `
 

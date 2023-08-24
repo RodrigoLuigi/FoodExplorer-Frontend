@@ -47,6 +47,8 @@ export const FavoritesWrapper = styled.div`
 		align-items: center;
 		gap: 1.3rem;
 		padding-block: 1.6rem;
+
+		width: 30rem;
 	}
 `
 
@@ -66,11 +68,13 @@ export const Info = styled.div`
 	flex-direction: column;
 	align-items: left;
 
-	h2 {
+	.title {
 		font-family: var(--ff-heading);
 		color: ${({ theme }) => theme.COLORS.LIGHT_300};
 		font-size: 20px;
 		font-weight: 500;
+		text-align: left;
+		white-space: nowrap;
 	}
 
 	> button {
@@ -80,5 +84,26 @@ export const Info = styled.div`
 		font-size: 12px;
 
 		color: ${({ theme }) => theme.COLORS.TOMATO_400};
+	}
+
+	> .btn-details {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+		span {
+			font-family: var(--ff-heading);
+			font-size: clamp(1.4rem, 0.4rem + 2vw, 2.4rem);
+			font-weight: 700;
+
+			transition: 300ms linear;
+		}
+
+		:hover span {
+			transform: translateX(3px);
+			color: ${({ theme }) => theme.COLORS.CAKE_200};
+		}
 	}
 `
