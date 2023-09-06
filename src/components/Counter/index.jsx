@@ -4,19 +4,21 @@ import { FiPlus, FiMinus } from 'react-icons/fi'
 
 import { Container } from './styles'
 
-export function Counter() {
+export function Counter({ onCountChange }) {
 	const [count, setCount] = useState(1)
 	let quantity = String(count).padStart(2, '0')
 
 	function increaseCount() {
 		if (count < 5) {
 			setCount(count + 1)
+			onCountChange(count + 1)
 		}
 	}
 
 	function decreaseCount() {
 		if (count > 1) {
 			setCount(count - 1)
+			onCountChange(count - 1)
 		}
 	}
 

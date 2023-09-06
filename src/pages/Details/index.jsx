@@ -2,6 +2,7 @@ import { api } from '../../services/api'
 import { useState, useEffect } from 'react'
 
 import { useAuth } from '../../hooks/auth'
+import { useCart } from '../../hooks/cart'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -23,6 +24,7 @@ export function Details() {
 	const [count, setCount] = useState(1)
 
 	const { user } = useAuth()
+	const { cart, addToCart } = useCart()
 
 	const params = useParams()
 	const navigate = useNavigate()
@@ -71,6 +73,23 @@ export function Details() {
 
 		return formattedPriceString
 	}
+
+	function handleAddToCart() {
+		const { id, name, price, imagePath } = data
+
+		const formattedPrice = price.replace(',', '.')
+
+		const priceNumber = parseFloat(formattedPrice) * count
+
+		const newData = { id, name, priceNumber, quantity: count, imagePath }
+		addToCart(newData)
+
+		console.log({ id, name, priceNumber, quantity: count, imagePath })
+	}
+
+	useEffect(() => {
+		console.log(cart)
+	}, [cart])
 
 	useEffect(() => {
 		async function fetchProduct() {
@@ -132,7 +151,7 @@ export function Details() {
 										</button>
 									</div>
 
-									<button className="btn-order">
+									<button className="btn-order" onClick={handleAddToCart}>
 										<img src={receipt} />
 										<strong>
 											incluir &middot;{' '}

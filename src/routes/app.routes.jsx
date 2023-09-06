@@ -4,6 +4,7 @@ import { Details } from '../pages/Details'
 import { NewProduct } from '../pages/NewProduct'
 import { EditProduct } from '../pages/EditProduct'
 import { Favorites } from '../pages/Favorites'
+import { Orders } from '../pages/Orders'
 
 export function AppRoutes() {
 	return (
@@ -13,6 +14,7 @@ export function AppRoutes() {
 			<Route path="/product/new" element={<NewProduct />} />
 			<Route path="/product/edit/:id" element={<EditProduct />} />
 			<Route path="/favorites" element={<Favorites />} />
+			<Route path="/orders" element={<Orders />} />
 		</Routes>
 	)
 }

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 import { useAuth } from '../../hooks/auth'
+import { useCart } from '../../hooks/cart'
+
 import { useNavigate } from 'react-router-dom'
 
 import logo from '../../assets/logo.svg'
@@ -21,6 +23,7 @@ export function Header({ setSearch }) {
 	const [menuIsVisible, setMenuIsVisible] = useState(false)
 
 	const { user, signOut } = useAuth()
+	const { cart } = useCart()
 
 	const navigate = useNavigate()
 
@@ -35,6 +38,10 @@ export function Header({ setSearch }) {
 
 	function handleFavorites() {
 		navigate('/favorites')
+	}
+
+	function handleOrders() {
+		navigate('/orders')
 	}
 
 	return (
@@ -83,11 +90,11 @@ export function Header({ setSearch }) {
 						onClick={handleNewProduct}
 					/>
 				) : (
-					<Orders>
+					<Orders onClick={handleOrders}>
 						<img src={receipt} size={32} />
 						<span>0</span>
 						<strong>
-							pedidos <span>(0)</span>
+							pedidos <span>({cart.length})</span>
 						</strong>
 					</Orders>
 				)}

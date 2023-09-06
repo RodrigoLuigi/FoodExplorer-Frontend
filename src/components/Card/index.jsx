@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+
 import { useAuth } from '../../hooks/auth'
+import { useCart } from '../../hooks/cart'
 
 import avatar from '../../assets/receipt.svg' /* refatorar */
 
@@ -17,8 +19,10 @@ import { Container, Favorites, CardImage, Info, Include } from './styles'
 
 export function Card({ data }) {
 	const [isFavorite, setIsFavorite] = useState(!!data.is_favorite)
+	const [count, setCount] = useState(1)
 
 	const { user } = useAuth()
+	const { addToCart } = useCart()
 
 	const navigate = useNavigate()
 
@@ -68,6 +72,23 @@ export function Card({ data }) {
 		}
 	}
 
+	function handleCountChange(newCount) {
+		setCount(newCount)
+	}
+
+	function handleAddToCart() {
+		const { id, name, price, imagePath } = data
+
+		const formattedPrice = price.replace(',', '.')
+
+		const priceNumber = parseFloat(formattedPrice) * count
+
+		const newData = { id, name, priceNumber, quantity: count, imagePath }
+		addToCart(newData)
+
+		console.log({ id, name, priceNumber, quantity: count, imagePath })
+	}
+
 	return (
 		<Container>
 			<Favorites>
@@ -101,8 +122,8 @@ export function Card({ data }) {
 
 			{user.role === 'ROLE_USER' && (
 				<Include>
-					<Counter />
-					<Button title="incluir" onClick={() => console.log(data.id)} />
+					<Counter onCountChange={handleCountChange} />
+					<Button title="incluir" onClick={handleAddToCart} />
 				</Include>
 			)}
 		</Container>
