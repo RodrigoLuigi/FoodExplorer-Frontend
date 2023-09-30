@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useAuth } from '../../hooks/auth'
 import { useCart } from '../../hooks/cart'
@@ -59,10 +60,12 @@ export function Header({ setSearch }) {
 				/>
 
 				<Logo>
-					<img
-						src={logo}
-						alt="Hexagono de cor azul com texto Food Explorer do lado direito"
-					/>
+					<Link to="/">
+						<img
+							src={logo}
+							alt="Hexagono de cor azul com texto Food Explorer do lado direito"
+						/>
+					</Link>
 					{user.role === 'ROLE_ADMIN' && <span>admin</span>}
 				</Logo>
 

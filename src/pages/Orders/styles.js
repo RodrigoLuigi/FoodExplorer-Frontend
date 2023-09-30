@@ -52,5 +52,62 @@ export const SectionWrapper = styled.div`
 	}
 
 	.payment {
+		width: 530px;
+	}
+
+	.buttons {
+		display: flex;
+		width: 100%;
+	}
+
+	.buttons button {
+		flex: 1;
+		height: 81px;
+		padding: 12px 14px;
+
+		font-size: 16px;
+		font-family: sans-serif;
+		color: #ffffff;
+
+		background-color: #000c12;
+		border: 1px solid #76797b;
+		border-bottom: none;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+	}
+
+	.buttons button:nth-child(1) {
+		border-top-left-radius: 8px;
+		border-right: none;
+	}
+	.buttons button:nth-child(2) {
+		border-top-right-radius: 8px;
+	}
+
+	.buttons button.active {
+		background-color: ${({ theme }) => theme.COLORS.DARK_800};
+	}
+
+	.payment-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 350px;
+
+		border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_600};
+		border-radius: 0 0 8px 8px;
+	}
+
+	.checkout {
+		display: none;
+		padding-inline: 9.1rem;
+	}
+
+	.active {
+		display: block;
 	}
 `
