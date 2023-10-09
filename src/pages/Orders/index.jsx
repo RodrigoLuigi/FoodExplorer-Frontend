@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { useCart } from '../../hooks/cart'
 
 import { FiChevronLeft } from 'react-icons/fi'
+import Clock from '../../assets/clock.svg'
+import CheckCircle from '../../assets/check-circle.svg'
+import ForkKnife from '../../assets/fork-knife.svg'
 import PixIcon from '../../assets/pix-icon.svg'
 import CreditCardIcon from '../../assets/creditCard-icon.svg'
 import QRCode from '../../assets/qrcode.svg'
@@ -22,7 +25,9 @@ export function Orders() {
 
 	const { cart } = useCart()
 
-	const totalPrice = cart.reduce((total, item) => total + item.priceNumber, 0)
+	const totalPrice = cart
+		.reduce((total, item) => total + item.priceNumber, 0)
+		.toFixed(2)
 
 	function handleBack() {
 		navigate(-1)
@@ -106,7 +111,32 @@ export function Orders() {
 											content === 'checkout' ? 'active' : ''
 										}`}
 									>
-										Conteúdo CAIXA
+										<div>
+											<img src={Clock} alt="Relógio" />
+											<span>Aguardando pagamento no caixa</span>
+										</div>
+									</div>
+
+									<div
+										className={`checkout checkout-content ${
+											content === 'payment-accept' ? 'active' : ''
+										}`}
+									>
+										<div>
+											<img src={CheckCircle} alt="" />
+											<span>Pagamento aprovado!</span>
+										</div>
+									</div>
+
+									<div
+										className={`checkout checkout-content ${
+											content === 'order-delivered' ? 'active' : ''
+										}`}
+									>
+										<div>
+											<img src={ForkKnife} alt="" />
+											<span>Pedido entregue!</span>
+										</div>
 									</div>
 								</div>
 							</div>

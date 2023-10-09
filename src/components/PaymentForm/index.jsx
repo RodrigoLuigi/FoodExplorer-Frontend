@@ -1,17 +1,37 @@
 import { Input } from '../Input'
-import { Button } from '../Button'
 import receipt from '../../assets/receipt.svg'
 
 import { Container } from './styles'
 import { useNavigate } from 'react-router-dom'
+import { useCart } from '../../hooks/cart'
+import { api } from '../../services/api'
 
 export function PaymentForm() {
 	const navigate = useNavigate()
 
-	function handleSubmit(event) {
+	const { cart, setCart } = useCart()
+
+	async function handleSubmit(event) {
 		event.preventDefault()
 
-		navigate('/')
+		const products = cart.map((product) => {
+			return { product_id: product.id, quantity: product.quantity }
+		})
+
+		await api
+			.post('/orders', { products })
+			.then(() => {
+				alert('Pedido finalizado!')
+				setCart([])
+				navigate('/')
+			})
+			.catch((error) => {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível finalizar o pedido!')
+				}
+			})
 	}
 
 	return (
@@ -28,21 +48,21 @@ export function PaymentForm() {
 
 			<div className="card-validate">
 				<div className="form-item">
-					<label htmlFor="card-number">Validade</label>
+					<label htmlFor="card-validate">Validade</label>
 					<Input
 						placeholder="04/25"
 						type="number"
-						id="card-number"
+						id="card-validate"
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
 
 				<div className="form-item">
-					<label htmlFor="card-number">CVC</label>
+					<label htmlFor="card-key">CVC</label>
 					<Input
 						placeholder="000"
 						type="number"
-						id="card-number"
+						id="card-key"
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>

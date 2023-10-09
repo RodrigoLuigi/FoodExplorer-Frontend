@@ -107,6 +107,24 @@ export const SectionWrapper = styled.div`
 		padding-inline: 9.1rem;
 	}
 
+	.checkout > div {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 3.7rem;
+
+		color: ${({ theme }) => theme.COLORS.LIGHT_400};
+	}
+
+	.checkout > span {
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 700;
+
+		white-space: nowrap;
+	}
+
 	.active {
 		display: block;
 	}
