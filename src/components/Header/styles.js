@@ -27,12 +27,13 @@ export const Container = styled.header`
 			display: none;
 		}
 
-		> .btn-favorites {
+		> .btn-favorites,
+		.btn-history {
 			white-space: nowrap;
 			display: none;
 		}
 
-		@media (min-width: 768px) {
+		@media (min-width: 1024px) {
 			.menu {
 				display: none;
 			}
@@ -42,7 +43,8 @@ export const Container = styled.header`
 				max-width: 21.6rem;
 			}
 
-			.btn-favorites {
+			.btn-favorites,
+			.btn-history {
 				display: block;
 			}
 		}
@@ -106,12 +108,15 @@ export const Search = styled.div`
 		border-width: 0;
 	}
 
-	@media (min-width: 768px) {
+	input {
+		padding-right: 0;
+	}
+
+	@media (min-width: 1024px) {
 		display: flex;
 	}
 
 	@media (min-width: 1060px) {
-		padding: 0 8.9rem;
 	}
 `
 
@@ -142,7 +147,7 @@ export const Orders = styled.button`
 		font-weight: 500;
 		font-family: var(--ff-heading);
 
-		@media (min-width: 768px) {
+		@media (min-width: 1024px) {
 			display: none;
 		}
 	}
@@ -153,12 +158,12 @@ export const Orders = styled.button`
 		display: none;
 		white-space: nowrap;
 
-		@media (min-width: 768px) {
+		@media (min-width: 1024px) {
 			display: block;
 		}
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 1024px) {
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -178,7 +183,7 @@ export const Logout = styled.button`
 
 	display: none;
 
-	@media (min-width: 768px) {
+	@media (min-width: 1024px) {
 		display: block;
 	}
 `

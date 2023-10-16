@@ -29,6 +29,10 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 		navigate('/favorites')
 	}
 
+	function handleHistory() {
+		navigate('/history')
+	}
+
 	useEffect(() => {
 		document.body.style.overflowY = menuIsVisible ? 'hidden' : 'auto'
 	}, [menuIsVisible])
@@ -42,8 +46,15 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 
 			<div className="content">
 				<Search>
-					<FiSearch size={24} />
-					<Input placeholder="Busque por pratos e ingredientes" type="text" />
+					<label htmlFor="search">
+						<FiSearch size={24} />
+					</label>
+					<Input
+						id="search"
+						name="search"
+						placeholder="Busque por pratos e ingredientes"
+						type="text"
+					/>
 				</Search>
 
 				<ul>
@@ -53,7 +64,10 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 						</li>
 					)}
 					<li>
-						<ButtonText title="Meus Favoritos" onClick={handleFavorites} />
+						<ButtonText title="Meus favoritos" onClick={handleFavorites} />
+					</li>
+					<li>
+						<ButtonText title="Histórico de pedidos " onClick={handleHistory} />
 					</li>
 					<li>
 						<ButtonText title="Sair" onClick={handleSignOut} />

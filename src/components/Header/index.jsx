@@ -45,6 +45,10 @@ export function Header({ setSearch }) {
 		navigate('/orders')
 	}
 
+	function handleOrderHistory() {
+		navigate('/history')
+	}
+
 	return (
 		<Container>
 			<div className="content">
@@ -71,8 +75,11 @@ export function Header({ setSearch }) {
 
 				<Search>
 					<div>
-						<FiSearch size={24} />
+						<label htmlFor="search">
+							<FiSearch size={24} />
+						</label>
 						<Input
+							name="search"
 							placeholder="Busque por pratos e ingredientes"
 							type="text"
 							onChange={(e) => setSearch(e.target.value)}
@@ -86,6 +93,12 @@ export function Header({ setSearch }) {
 					onClick={handleFavorites}
 				/>
 
+				<ButtonText
+					title="Histórico de pedidos"
+					className="btn-history"
+					onClick={handleOrderHistory}
+				/>
+
 				{user.role === 'ROLE_ADMIN' ? (
 					<Button
 						title="Novo prato"
@@ -95,9 +108,9 @@ export function Header({ setSearch }) {
 				) : (
 					<Orders onClick={handleOrders}>
 						<img src={receipt} size={32} />
-						<span>0</span>
+						<span>{cart.length}</span>
 						<strong>
-							pedidos <span>({cart.length})</span>
+							Pedidos <span>({cart.length})</span>
 						</strong>
 					</Orders>
 				)}
