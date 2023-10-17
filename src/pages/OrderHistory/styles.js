@@ -64,7 +64,7 @@ export const HistoryTable = styled.div`
 	tbody tr {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 3.1rem;
+		gap: 2rem;
 
 		border: 2px solid ${({ theme }) => theme.COLORS.DARK_1000};
 		border-radius: 8px;
@@ -110,6 +110,12 @@ export const HistoryTable = styled.div`
 
 	.doneStyle div {
 		background-color: green;
+	}
+
+	@media (min-width: 425px) {
+		tbody tr {
+			gap: 3.1rem;
+		}
 	}
 
 	@media (min-width: 768px) {
