@@ -83,13 +83,7 @@ export function Details() {
 
 		const newData = { id, name, priceNumber, quantity: count, imagePath }
 		addToCart(newData)
-
-		console.log({ id, name, priceNumber, quantity: count, imagePath })
 	}
-
-	useEffect(() => {
-		console.log(cart)
-	}, [cart])
 
 	useEffect(() => {
 		async function fetchProduct() {
