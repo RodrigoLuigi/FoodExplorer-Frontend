@@ -16,6 +16,12 @@ export function CardSecondary({ data }) {
 	function removeProductFromCart() {
 		removeFromCart(data)
 	}
+
+	function formatPrice(price) {
+		const totalPrice = data.priceNumber.toFixed(2)
+
+		return totalPrice
+	}
 	return (
 		<Container>
 			<div className="card-image">
@@ -27,7 +33,7 @@ export function CardSecondary({ data }) {
 					<h2>
 						{data.quantity} x {data.name}
 					</h2>
-					<span>R$ {data.priceNumber}</span>
+					<span>R$ {formatPrice(data.priceNumber)}</span>
 				</div>
 
 				<button onClick={removeProductFromCart}>Excluir</button>
