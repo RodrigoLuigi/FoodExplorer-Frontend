@@ -19,9 +19,9 @@ export const Container = styled.div`
 	}
 
 	.info-container div {
-		display: flex;
+		/* display: flex;
 		align-items: center;
-		gap: 1.2rem;
+		gap: 1.2rem; */
 	}
 
 	.info-container h2 {
@@ -41,5 +41,13 @@ export const Container = styled.div`
 
 		font-size: 1.2rem;
 		color: ${({ theme }) => theme.COLORS.TOMATO_400};
+	}
+
+	@media (min-width: 1024px) {
+		.info-container div {
+			display: flex;
+			align-items: center;
+			gap: 1.2rem;
+		}
 	}
 `

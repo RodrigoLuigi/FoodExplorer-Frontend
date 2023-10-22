@@ -27,6 +27,7 @@ export const Content = styled.div`
 
 export const SectionWrapper = styled.div`
 	display: flex;
+	flex-direction: column;
 	gap: 7.5rem;
 
 	margin-top: 2rem;
@@ -52,7 +53,9 @@ export const SectionWrapper = styled.div`
 	}
 
 	.payment {
-		width: 530px;
+		/* width: 100%; */
+
+		/* max-width: 530px; */
 	}
 
 	.buttons {
@@ -127,5 +130,13 @@ export const SectionWrapper = styled.div`
 
 	.active {
 		display: block;
+	}
+
+	@media (min-width: 768px) {
+		flex-direction: row;
+
+		.payment {
+			width: 530px;
+		}
 	}
 `
