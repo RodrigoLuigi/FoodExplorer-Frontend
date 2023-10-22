@@ -15,12 +15,13 @@ export function SignIn() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const { signIn, loading, setLoading } = useAuth()
+	const { signIn, loading } = useAuth()
 
 	function handleSignIn() {
-		if ((email, password)) {
+		if (!email || !password) {
+			alert('Digite seu e-mail e senha para fazer o login!')
+		} else {
 			signIn({ email, password })
-			setLoading(true)
 		}
 	}
 
