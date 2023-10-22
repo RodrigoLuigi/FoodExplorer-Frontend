@@ -18,20 +18,21 @@ export function PaymentForm() {
 			return { product_id: product.id, quantity: product.quantity }
 		})
 
-		await api
-			.post('/orders', { products })
-			.then(() => {
-				alert('Pedido finalizado!')
-				setCart([])
-				navigate('/')
-			})
-			.catch((error) => {
-				if (error.response) {
-					alert(error.response.data.message)
-				} else {
-					alert('Não foi possível finalizar o pedido!')
-				}
-			})
+		try {
+			await api.post('/orders', { products })
+
+			alert(
+				'Pagamento aprovado, acompanhe o status do seu pedido pelo Histórico de pedidos!'
+			)
+			setCart([])
+			navigate('/')
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possível finalizar o pedido!')
+			}
+		}
 	}
 
 	return (

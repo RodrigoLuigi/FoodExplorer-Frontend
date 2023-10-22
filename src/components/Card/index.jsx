@@ -45,30 +45,46 @@ export function Card({ data }) {
 		try {
 			if (newIsFavorite) {
 				await addProductToFavorites(user.id, data.id)
+
+				alert('Produto adicionado aos favoritos')
 			} else {
 				await removeProductFromFavorites(data.id)
+
+				alert('Produto removido dos favoritos')
 			}
 		} catch (error) {
-			handleFavoriteError(error)
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Erro ao gerenciar favorito:', error)
+			}
 		}
 	}
 
 	async function addProductToFavorites(user_id, product_id) {
-		await api.post('/favorites', {
-			user_id,
-			product_id
-		})
+		try {
+			await api.post('/favorites', {
+				user_id,
+				product_id
+			})
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possível adicionar este produto aos favoritos!')
+			}
+		}
 	}
 
 	async function removeProductFromFavorites(product_id) {
-		await api.delete(`/favorites/${product_id}`)
-	}
-
-	function handleFavoriteError(error) {
-		if (error.response) {
-			alert(error.response.data.message)
-		} else {
-			alert('Erro ao gerenciar favorito:', error)
+		try {
+			await api.delete(`/favorites/${product_id}`)
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possível remover este produto dos favoritos!')
+			}
 		}
 	}
 
@@ -85,8 +101,6 @@ export function Card({ data }) {
 
 		const newData = { id, name, priceNumber, quantity: count, imagePath }
 		addToCart(newData)
-
-		console.log({ id, name, priceNumber, quantity: count, imagePath })
 	}
 
 	return (

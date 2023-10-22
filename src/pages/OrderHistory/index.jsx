@@ -46,15 +46,23 @@ export function OrderHistory() {
 
 	useEffect(() => {
 		async function fetchHistory() {
-			const response = await api.get('/orders')
+			try {
+				const response = await api.get('/orders')
 
-			response.data.map((order) => {
-				const formattedDate = formatDate(order.created_at)
+				response.data.map((order) => {
+					const formattedDate = formatDate(order.created_at)
 
-				order.created_at = formattedDate
-			})
+					order.created_at = formattedDate
+				})
 
-			setHistory(response.data)
+				setHistory(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar o histórico de pedidos.')
+				}
+			}
 		}
 
 		fetchHistory()

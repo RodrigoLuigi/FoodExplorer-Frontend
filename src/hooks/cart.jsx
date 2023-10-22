@@ -10,14 +10,16 @@ export function CartProvider({ children }) {
 
 		if (checkOrderedProduct === undefined) {
 			setCart([...cart, product])
+			alert('Produto adicionado com sucesso ao carrinho!')
 		} else {
-			console.log('Este produto já está no carrinho.')
+			alert('Este produto já está no carrinho.')
 		}
 	}
 
 	function removeFromCart(productToRemove) {
 		const newCart = cart.filter((product) => product.id !== productToRemove.id)
 		setCart(newCart)
+		alert('Produto removido do carrinho!')
 	}
 
 	return (

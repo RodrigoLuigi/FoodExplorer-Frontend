@@ -1,16 +1,16 @@
+import { useEffect, useState } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 
-import { FiChevronLeft } from 'react-icons/fi'
+import { api } from '../../services/api'
 
-import dishe from '../../assets/dishe.png'
+import { FiChevronLeft } from 'react-icons/fi'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { ButtonText } from '../../components/ButtonText'
 
 import { Container, Content, FavoritesWrapper, CardImage, Info } from './styles'
-import { useEffect, useState } from 'react'
-import { api } from '../../services/api'
 
 export function Favorites() {
 	const [favorites, setFavorites] = useState([])
@@ -28,15 +28,17 @@ export function Favorites() {
 	async function handleRemoveFavorite(id) {
 		try {
 			await api.delete(`/favorites/${id}`)
-			alert('Produto removido dos favoritos')
+
 			setFavorites((prevState) =>
 				prevState.filter((favorite) => favorite.product_id !== id)
 			)
+
+			alert('Produto removido dos favoritos')
 		} catch (error) {
 			if (error.response) {
 				alert(error.response.data.message)
 			} else {
-				alert('Erro ao remover o favorito:', error)
+				alert('Não foi possível remover o favorito.')
 			}
 		}
 	}
@@ -50,7 +52,7 @@ export function Favorites() {
 				if (error.response) {
 					alert(error.response.data.message)
 				} else {
-					alert('Erro ao buscar favoritos:', error)
+					alert('Não foi possível carregar os favoritos.')
 				}
 			}
 		}

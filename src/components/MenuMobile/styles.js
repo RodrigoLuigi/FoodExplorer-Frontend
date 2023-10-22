@@ -77,7 +77,7 @@ export const Search = styled.div`
 
 	background-color: ${({ theme }) => theme.COLORS.DARK_900};
 
-	label {
+	/* label {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -87,5 +87,5 @@ export const Search = styled.div`
 		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
 		border-width: 0;
-	}
+	} */
 `

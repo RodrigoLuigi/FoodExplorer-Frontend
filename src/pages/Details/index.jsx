@@ -24,7 +24,7 @@ export function Details() {
 	const [count, setCount] = useState(1)
 
 	const { user } = useAuth()
-	const { cart, addToCart } = useCart()
+	const { addToCart } = useCart()
 
 	const params = useParams()
 	const navigate = useNavigate()
@@ -87,8 +87,16 @@ export function Details() {
 
 	useEffect(() => {
 		async function fetchProduct() {
-			const response = await api.get(`/products/${params.id}`)
-			setData(response.data)
+			try {
+				const response = await api.get(`/products/${params.id}`)
+				setData(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar os dados do produto.')
+				}
+			}
 		}
 
 		fetchProduct()

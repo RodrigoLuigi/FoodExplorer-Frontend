@@ -17,8 +17,8 @@ function AuthProvider({ children }) {
 			localStorage.setItem('@foodexplorer:user', JSON.stringify(user))
 			localStorage.setItem('@foodexplorer:token', token)
 
-			api.defaults.headers.authorization = `Bearer ${token}`
-			setData({ user, token })
+			//api.defaults.headers.authorization = `Bearer ${token}`
+			setData({ user /* , token */ })
 		} catch (error) {
 			if (error.response) {
 				alert(error.response.data.message)
@@ -39,13 +39,13 @@ function AuthProvider({ children }) {
 	}
 
 	useEffect(() => {
-		const token = localStorage.getItem('@foodexplorer:token')
+		/* const token = localStorage.getItem('@foodexplorer:token') */
 		const user = localStorage.getItem('@foodexplorer:user')
 
-		if (token && user) {
-			api.defaults.headers.authorization = `Bearer ${token}`
+		if (/* token && */ user) {
+			//api.defaults.headers.authorization = `Bearer ${token}`
 			setData({
-				token,
+				/* token, */
 				user: JSON.parse(user)
 			})
 		}

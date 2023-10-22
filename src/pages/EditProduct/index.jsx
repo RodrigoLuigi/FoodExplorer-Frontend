@@ -28,6 +28,7 @@ export function EditProduct() {
 	const [category, setCategory] = useState()
 	const [ingredients, setIngredients] = useState([])
 	const [productImageFile, setProductImageFile] = useState(null)
+	const [imagePath, setImagePath] = useState('')
 	const [description, setDescription] = useState('')
 
 	const params = useParams()
@@ -66,18 +67,39 @@ export function EditProduct() {
 		setPrice(formattedPrice)
 	}
 
+	function handleChangeImage(event) {
+		const imageFile = event.target.files[0]
+
+		setProductImageFile(imageFile)
+		setImagePath(formatImagePath(imageFile.name))
+	}
+
+	async function handleUpdateProductImage(productImageFile) {
+		const fileUploadForm = new FormData()
+		fileUploadForm.append('productImage', productImageFile)
+
+		try {
+			await api.patch(`/products/image/${params.id}`, fileUploadForm)
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possivel atualizar a imagem do produto.')
+			}
+		}
+	}
+
 	async function handleUpdateProduct() {
+		if (ingredients.length <= 0) {
+			return alert('Adicione ao menos 1 ingrediente!')
+		}
+
 		const ingredientsId = ingredients.map((ingredient) => ingredient.id)
 
 		if (productImageFile) {
-			const fileUploadForm = new FormData()
-			fileUploadForm.append('productImage', productImageFile)
-
-			const response = await api.patch(
-				`/products/image/${params.id}`,
-				fileUploadForm
-			)
+			handleUpdateProductImage(productImageFile)
 		}
+
 		try {
 			await api.put(`/products/${params.id}`, {
 				name,
@@ -100,32 +122,64 @@ export function EditProduct() {
 
 	async function handleDeleteProduct() {
 		try {
-			await api.delete(`/products/${params.id}`)
+			if (confirm('Deseja excluir o prato?')) {
+				await api.delete(`/products/${params.id}`)
 
-			alert('Prato excluido com sucesso!')
-
-			navigate(-1)
+				alert('Prato excluido com sucesso!')
+				navigate(-1)
+			} else {
+				alert('Exclusão cancelada.')
+			}
 		} catch (error) {
-			alert('Ocorreu um erro ao tentar excluir o prato!', error)
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possível excluir o produto!')
+			}
+		}
+	}
+
+	function formatImagePath(imagePath) {
+		if (imagePath === null) {
+			return ''
+		}
+		if (imagePath.length > 11) {
+			const extractedPart = imagePath.slice(-13)
+
+			return `. . . ${extractedPart}`
+		} else {
+			return imagePath
 		}
 	}
 
 	useEffect(() => {
 		async function fetchProduct() {
-			const response = await api.get(`/products/${params.id}`)
+			try {
+				const response = await api.get(`/products/${params.id}`)
 
-			const { name, price, category_id, description, productIngredients } =
-				response.data
+				const {
+					name,
+					price,
+					category_id,
+					description,
+					productIngredients,
+					imagePath
+				} = response.data
 
-			setName(name)
-			/* setPrice(formatPrice(price)) */
-			setPrice(price)
-			setIngredients([])
-			setCategory(category_id)
-			setDescription(description)
-			setIngredients(productIngredients)
-
-			console.log('inicial:', price)
+				setName(name)
+				setPrice(price)
+				setIngredients([])
+				setCategory(category_id)
+				setDescription(description)
+				setIngredients(productIngredients)
+				setImagePath(formatImagePath(imagePath))
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar os dados do produto.')
+				}
+			}
 		}
 
 		fetchProduct()
@@ -133,18 +187,34 @@ export function EditProduct() {
 
 	useEffect(() => {
 		async function fetchIngredients() {
-			const response = await api.get('/ingredients')
-			setIngredientsData(response.data)
+			try {
+				const response = await api.get('/ingredients')
+				setIngredientsData(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar os ingredientes.')
+				}
+			}
 		}
-		window.scrollTo(0, 0)
 
 		fetchIngredients()
+		window.scrollTo(0, 0)
 	}, [])
 
 	useEffect(() => {
 		async function fetchCategories() {
-			const response = await api.get('/categories')
-			setCategoryData(response.data)
+			try {
+				const response = await api.get('/categories')
+				setCategoryData(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar as categorias.')
+				}
+			}
 		}
 
 		fetchCategories()
@@ -170,15 +240,13 @@ export function EditProduct() {
 								<label htmlFor="product-img">Imagem do Prato</label>
 								<label htmlFor="product-img">
 									<FiUpload size={24} />
-									{productImageFile
-										? productImageFile.name
-										: 'Selecione Imagem'}
+									{imagePath ? imagePath : 'Selecione Imagem'}
 								</label>
 								<Input
 									type="file"
 									name="product-img"
 									id="product-img"
-									onChange={(e) => setProductImageFile(e.target.files[0])}
+									onChange={handleChangeImage}
 								/>
 							</div>
 

@@ -21,19 +21,37 @@ export function Home() {
 
 	useEffect(() => {
 		async function fetchCategories() {
-			const response = await api.get(`/categories`)
-			setCategories(response.data)
+			try {
+				const response = await api.get(`/categories`)
+				setCategories(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar as categorias.')
+				}
+			}
 		}
+
 		fetchCategories()
 		window.scrollTo(0, 0)
 	}, [])
 
 	useEffect(() => {
 		async function fetchProducts() {
-			const response = await api.get(
-				`/products?name=${search}&ingredients=${ingredientsSearch}`
-			)
-			setProducts(response.data)
+			try {
+				const response = await api.get(
+					`/products?name=${search}&ingredients=${ingredientsSearch}`
+				)
+
+				setProducts(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar os produtos.')
+				}
+			}
 		}
 
 		fetchProducts()

@@ -66,29 +66,28 @@ export function NewProduct() {
 
 	async function handleNewProduct() {
 		if (ingredients.length <= 0) {
-			return alert('Adicione ao menos 1 ingredient!')
+			return alert('Adicione ao menos 1 ingrediente!')
 		}
 		const ingredientsId = ingredients.map((ingredient) => ingredient.id)
 
-		await api
-			.post('/products', {
+		try {
+			await api.post('/products', {
 				name,
 				description,
 				price,
 				category_id: category,
 				ingredients: ingredientsId
 			})
-			.then((response) => {
-				alert('Produto criado com sucesso!')
-				navigate(-1)
-			})
-			.catch((error) => {
-				if (error.response) {
-					alert(error.response.data.message)
-				} else {
-					alert('Erro ao enviar o produto:', error)
-				}
-			})
+
+			alert('Produto criado com sucesso!')
+			navigate(-1)
+		} catch (error) {
+			if (error.response) {
+				alert(error.response.data.message)
+			} else {
+				alert('Não foi possível criar o produto!')
+			}
+		}
 
 		/* const formData = new FormData()
 		formData.append('name', name)
@@ -116,8 +115,16 @@ export function NewProduct() {
 
 	useEffect(() => {
 		async function fetchIngredients() {
-			const response = await api.get('/ingredients')
-			setIngredientsData(response.data)
+			try {
+				const response = await api.get('/ingredients')
+				setIngredientsData(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar os ingredientes!')
+				}
+			}
 		}
 
 		fetchIngredients()
@@ -125,8 +132,16 @@ export function NewProduct() {
 
 	useEffect(() => {
 		async function fetchCategories() {
-			const response = await api.get('/categories')
-			setCategoryData(response.data)
+			try {
+				const response = await api.get('/categories')
+				setCategoryData(response.data)
+			} catch (error) {
+				if (error.response) {
+					alert(error.response.data.message)
+				} else {
+					alert('Não foi possível carregar as categorias!')
+				}
+			}
 		}
 
 		fetchCategories()
@@ -152,7 +167,7 @@ export function NewProduct() {
 								<label htmlFor="product-img">Imagem do Prato</label>
 								<label htmlFor="product-img">
 									<FiUpload size={24} />
-									Selecione Imagem
+									{productImage ? productImage.name : 'Selecione Imagem'}
 								</label>
 								<Input
 									type="file"
