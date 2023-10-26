@@ -55,6 +55,7 @@ export function Header({ setSearch }) {
 				<MenuMobile
 					menuIsVisible={menuIsVisible}
 					setMenuIsVisible={setMenuIsVisible}
+					setSearch={setSearch}
 				/>
 
 				<IoMenu

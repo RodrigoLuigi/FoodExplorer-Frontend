@@ -56,7 +56,7 @@ export function Home() {
 
 		fetchProducts()
 
-		search ? window.scrollTo(0, 470) : window.scrollTo(0, 0)
+		search ? window.scrollTo(0, 450) : window.scrollTo(0, 0)
 	}, [search, ingredientsSearch])
 
 	return (

@@ -11,7 +11,7 @@ import { ButtonText } from '../ButtonText'
 
 import { Container, Search } from './styles'
 
-export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
+export function MenuMobile({ menuIsVisible, setMenuIsVisible, setSearch }) {
 	const { user, signOut } = useAuth()
 
 	const navigate = useNavigate()
@@ -54,6 +54,7 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible }) {
 						name="search"
 						placeholder="Busque por pratos e ingredientes"
 						type="text"
+						onChange={(e) => setSearch(e.target.value)}
 					/>
 				</Search>
 
