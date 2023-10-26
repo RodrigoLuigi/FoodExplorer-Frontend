@@ -24,6 +24,7 @@ export function SignUp() {
 		}
 
 		try {
+			setLoading(true)
 			await api.post('/users', { name, email, password })
 
 			alert('Usuário cadastrado com sucesso!')
@@ -31,9 +32,12 @@ export function SignUp() {
 		} catch (error) {
 			if (error.response) {
 				alert(error.response.data.message)
+				setLoading(false)
 			} else {
 				alert('Não foi possível cadastrar um novo usuário!')
 			}
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -52,6 +56,7 @@ export function SignUp() {
 						placeholder="Exemplo: Maria da Silva"
 						type="text"
 						id="name"
+						disabled={loading}
 						className="input-signup"
 						onChange={(e) => setName(e.target.value)}
 					/>
@@ -63,6 +68,7 @@ export function SignUp() {
 						placeholder="Exemplo: exemplo@exemplo.com"
 						type="email"
 						id="email"
+						disabled={loading}
 						className="input-signup"
 						onChange={(e) => setEmail(e.target.value)}
 					/>
@@ -74,6 +80,7 @@ export function SignUp() {
 						placeholder="No mínimo 6 caracteres "
 						type="password"
 						id="password"
+						disabled={loading}
 						className="input-signup"
 						onChange={(e) => setPassword(e.target.value)}
 					/>

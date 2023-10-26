@@ -11,6 +11,8 @@ import { Category } from '../../components/Category'
 import { CarouselSwiper } from '../../components/CarouselSwiper'
 
 import { Container, Content } from './styles'
+import { useAuth } from '../../hooks/auth'
+import { Loading } from '../../components/Loading'
 
 export function Home() {
 	const [categories, setCategories] = useState([])
@@ -18,6 +20,8 @@ export function Home() {
 
 	const [search, setSearch] = useState('')
 	const [ingredientsSearch, setIngredientsSearch] = useState([])
+
+	const { loading } = useAuth()
 
 	useEffect(() => {
 		async function fetchCategories() {
@@ -67,23 +71,27 @@ export function Home() {
 				<Brand />
 
 				<Content>
-					{categories.map((category) => (
-						<Category title={category.name} key={String(category.id)}>
-							<CarouselSwiper>
-								{products.length > 0 ? (
-									products
-										.filter((product) => product.category_id === category.id)
-										.map((product) => (
-											<SwiperSlide key={String(product.id)}>
-												<Card data={product} className="swiper-slide" />
-											</SwiperSlide>
-										))
-								) : (
-									<h3>NENHUM PRODUTO CADASTRADO</h3>
-								)}
-							</CarouselSwiper>
-						</Category>
-					))}
+					{loading ? (
+						<Loading />
+					) : (
+						categories.map((category) => (
+							<Category title={category.name} key={String(category.id)}>
+								<CarouselSwiper>
+									{products.length > 0 ? (
+										products
+											.filter((product) => product.category_id === category.id)
+											.map((product) => (
+												<SwiperSlide key={String(product.id)}>
+													<Card data={product} className="swiper-slide" />
+												</SwiperSlide>
+											))
+									) : (
+										<h3>NENHUM PRODUTO CADASTRADO</h3>
+									)}
+								</CarouselSwiper>
+							</Category>
+						))
+					)}
 				</Content>
 			</main>
 

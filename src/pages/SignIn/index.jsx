@@ -40,6 +40,7 @@ export function SignIn() {
 						placeholder="Exemplo: exemplo@exemplo.com"
 						type="email"
 						id="email"
+						disabled={loading}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</div>
@@ -50,6 +51,7 @@ export function SignIn() {
 						placeholder="No mínimo 6 caracteres "
 						type="password"
 						id="password"
+						disabled={loading}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
