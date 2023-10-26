@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useCart } from '../../hooks/cart'
@@ -40,8 +40,9 @@ export function Orders() {
 			setContent('checkout')
 		}
 	}
-
-	window.scrollTo(0, 0)
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 	return (
 		<Container>
 			<Header />
