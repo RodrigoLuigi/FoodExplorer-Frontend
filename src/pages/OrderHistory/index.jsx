@@ -7,12 +7,14 @@ import { FiChevronLeft } from 'react-icons/fi'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
+import { Loading } from '../../components/Loading'
 import { ButtonText } from '../../components/ButtonText'
 
 import { Container, Content, HistoryTable } from './styles'
 
 export function OrderHistory() {
 	const [history, setHistory] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	const navigate = useNavigate()
 
@@ -59,9 +61,14 @@ export function OrderHistory() {
 			} catch (error) {
 				if (error.response) {
 					alert(error.response.data.message)
+					setLoading(false)
 				} else {
 					alert('Não foi possível carregar o histórico de pedidos.')
 				}
+			} finally {
+				setTimeout(() => {
+					setLoading(false)
+				}, 500)
 			}
 		}
 
@@ -82,7 +89,9 @@ export function OrderHistory() {
 
 					<h1>Pedidos</h1>
 
-					{history.length > 0 ? (
+					{loading ? (
+						<Loading />
+					) : history.length > 0 ? (
 						<HistoryTable>
 							<table>
 								<thead>

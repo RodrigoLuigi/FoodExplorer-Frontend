@@ -7,12 +7,11 @@ import { Card } from '../../components/Card'
 import { Brand } from '../../components/Brand'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
+import { Loading } from '../../components/Loading'
 import { Category } from '../../components/Category'
 import { CarouselSwiper } from '../../components/CarouselSwiper'
 
 import { Container, Content } from './styles'
-import { useAuth } from '../../hooks/auth'
-import { Loading } from '../../components/Loading'
 
 export function Home() {
 	const [categories, setCategories] = useState([])
@@ -21,7 +20,7 @@ export function Home() {
 	const [search, setSearch] = useState('')
 	const [ingredientsSearch, setIngredientsSearch] = useState([])
 
-	const { loading } = useAuth()
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		async function fetchCategories() {
@@ -31,9 +30,14 @@ export function Home() {
 			} catch (error) {
 				if (error.response) {
 					alert(error.response.data.message)
+					setLoading(false)
 				} else {
 					alert('Não foi possível carregar as categorias.')
 				}
+			} finally {
+				setTimeout(() => {
+					setLoading(false)
+				}, 500)
 			}
 		}
 
@@ -44,6 +48,7 @@ export function Home() {
 	useEffect(() => {
 		async function fetchProducts() {
 			try {
+				setLoading(true)
 				const response = await api.get(
 					`/products?name=${search}&ingredients=${ingredientsSearch}`
 				)
@@ -52,9 +57,14 @@ export function Home() {
 			} catch (error) {
 				if (error.response) {
 					alert(error.response.data.message)
+					setLoading(false)
 				} else {
 					alert('Não foi possível carregar os produtos.')
 				}
+			} finally {
+				setTimeout(() => {
+					setLoading(false)
+				}, 500)
 			}
 		}
 

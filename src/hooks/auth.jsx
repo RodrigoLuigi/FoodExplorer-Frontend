@@ -27,7 +27,9 @@ function AuthProvider({ children }) {
 				alert('Não foi possível fazer o login!')
 			}
 		} finally {
-			setLoading(false)
+			setTimeout(() => {
+				setLoading(false)
+			}, 500)
 		}
 	}
 

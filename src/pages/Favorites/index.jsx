@@ -8,12 +8,14 @@ import { FiChevronLeft } from 'react-icons/fi'
 
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
+import { Loading } from '../../components/Loading'
 import { ButtonText } from '../../components/ButtonText'
 
 import { Container, Content, FavoritesWrapper, CardImage, Info } from './styles'
 
 export function Favorites() {
 	const [favorites, setFavorites] = useState([])
+	const [loading, setLoading] = useState(true)
 
 	const navigate = useNavigate()
 
@@ -51,9 +53,14 @@ export function Favorites() {
 			} catch (error) {
 				if (error.response) {
 					alert(error.response.data.message)
+					setLoading(false)
 				} else {
 					alert('Não foi possível carregar os favoritos.')
 				}
+			} finally {
+				setTimeout(() => {
+					setLoading(false)
+				}, 500)
 			}
 		}
 		fetchFavorites()
@@ -72,34 +79,40 @@ export function Favorites() {
 					/>
 					<h1>Meus Favoritos</h1>
 
-					<FavoritesWrapper>
-						{favorites &&
-							favorites.map((favorite) => (
-								<div className="favorite-card" key={String(favorite.id)}>
-									<CardImage>
-										<img
-											src={`${api.defaults.baseURL}/files/${favorite.imagePath}`}
-											alt={`Imagem do prato`}
-										/>
-									</CardImage>
+					{loading ? (
+						<Loading />
+					) : (
+						<FavoritesWrapper>
+							{favorites &&
+								favorites.map((favorite) => (
+									<div className="favorite-card" key={String(favorite.id)}>
+										<CardImage>
+											<img
+												src={`${api.defaults.baseURL}/files/${favorite.imagePath}`}
+												alt={`Imagem do prato`}
+											/>
+										</CardImage>
 
-									<Info>
-										<button
-											className="btn-details"
-											type="button"
-											onClick={() => handleDetails(favorite.product_id)}
-										>
-											<h2 className="title">{favorite.name}</h2>
-											<span>&gt;</span>
-										</button>
-										<ButtonText
-											title="Remover dos Favoritos"
-											onClick={() => handleRemoveFavorite(favorite.product_id)}
-										/>
-									</Info>
-								</div>
-							))}
-					</FavoritesWrapper>
+										<Info>
+											<button
+												className="btn-details"
+												type="button"
+												onClick={() => handleDetails(favorite.product_id)}
+											>
+												<h2 className="title">{favorite.name}</h2>
+												<span>&gt;</span>
+											</button>
+											<ButtonText
+												title="Remover dos Favoritos"
+												onClick={() =>
+													handleRemoveFavorite(favorite.product_id)
+												}
+											/>
+										</Info>
+									</div>
+								))}
+						</FavoritesWrapper>
+					)}
 				</Content>
 			</main>
 
