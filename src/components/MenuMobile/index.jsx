@@ -30,7 +30,10 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible, setSearch }) {
 	}
 
 	function handleHistory() {
-		navigate('/history')
+		navigate('/orders/history')
+	}
+	function handleAllOrders() {
+		navigate('/orders/all')
 	}
 
 	useEffect(() => {
@@ -59,17 +62,28 @@ export function MenuMobile({ menuIsVisible, setMenuIsVisible, setSearch }) {
 				</Search>
 
 				<ul>
-					{user.role === 'ROLE_ADMIN' && (
-						<li>
-							<ButtonText title="Novo prato" onClick={handleNewProduct} />
-						</li>
+					{user.role === 'ROLE_ADMIN' ? (
+						<>
+							<li>
+								<ButtonText title="Novo prato" onClick={handleNewProduct} />
+							</li>
+							<li>
+								<ButtonText title="Pedidos " onClick={handleAllOrders} />
+							</li>
+						</>
+					) : (
+						<>
+							<li>
+								<ButtonText title="Meus favoritos" onClick={handleFavorites} />
+							</li>
+							<li>
+								<ButtonText
+									title="Histórico de pedidos "
+									onClick={handleHistory}
+								/>
+							</li>
+						</>
 					)}
-					<li>
-						<ButtonText title="Meus favoritos" onClick={handleFavorites} />
-					</li>
-					<li>
-						<ButtonText title="Histórico de pedidos " onClick={handleHistory} />
-					</li>
 					<li>
 						<ButtonText title="Sair" onClick={handleSignOut} />
 					</li>

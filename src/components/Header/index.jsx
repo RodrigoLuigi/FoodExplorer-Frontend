@@ -46,7 +46,11 @@ export function Header({ setSearch }) {
 	}
 
 	function handleOrderHistory() {
-		navigate('/history')
+		navigate('/orders/history')
+	}
+
+	function handleAllOrders() {
+		navigate('/orders/all')
 	}
 
 	return (
@@ -88,32 +92,42 @@ export function Header({ setSearch }) {
 					</div>
 				</Search>
 
-				<ButtonText
-					title="Meus Favoritos"
-					className="btn-favorites"
-					onClick={handleFavorites}
-				/>
-
-				<ButtonText
-					title="Histórico de pedidos"
-					className="btn-history"
-					onClick={handleOrderHistory}
-				/>
-
 				{user.role === 'ROLE_ADMIN' ? (
-					<Button
-						title="Novo prato"
-						className="btn-new-product"
-						onClick={handleNewProduct}
-					/>
+					<>
+						<ButtonText
+							title="Pedidos"
+							className="btn-history"
+							onClick={handleAllOrders}
+						/>
+
+						<Button
+							title="Novo prato"
+							className="btn-new-product"
+							onClick={handleNewProduct}
+						/>
+					</>
 				) : (
-					<Orders onClick={handleOrders}>
-						<img src={receipt} size={32} />
-						<span>{cart.length}</span>
-						<strong>
-							Pedidos <span>({cart.length})</span>
-						</strong>
-					</Orders>
+					<>
+						<ButtonText
+							title="Meus Favoritos"
+							className="btn-favorites"
+							onClick={handleFavorites}
+						/>
+
+						<ButtonText
+							title="Histórico de pedidos"
+							className="btn-history"
+							onClick={handleOrderHistory}
+						/>
+
+						<Orders onClick={handleOrders}>
+							<img src={receipt} size={32} />
+							<span>{cart.length}</span>
+							<strong>
+								Pedidos <span>({cart.length})</span>
+							</strong>
+						</Orders>
+					</>
 				)}
 
 				<Logout onClick={handleSignOut}>

@@ -6,6 +6,7 @@ import { EditProduct } from '../pages/EditProduct'
 import { Favorites } from '../pages/Favorites'
 import { Orders } from '../pages/Orders'
 import { OrderHistory } from '../pages/OrderHistory'
+import { AllOrders } from '../pages/AllOrders'
 
 export function AppRoutes() {
 	return (
@@ -16,7 +17,8 @@ export function AppRoutes() {
 			<Route path="/product/edit/:id" element={<EditProduct />} />
 			<Route path="/favorites" element={<Favorites />} />
 			<Route path="/orders" element={<Orders />} />
-			<Route path="/history" element={<OrderHistory />} />
+			<Route path="/orders/history" element={<OrderHistory />} />
+			<Route path="/orders/all" element={<AllOrders />} />
 		</Routes>
 	)
 }
