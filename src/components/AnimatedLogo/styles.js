@@ -19,20 +19,6 @@ export const Container = styled.div`
 	/* padding: 0 3.4rem; */
 
 	animation: bannerRecoil 2s ease-out both 5.5s;
-	-webkit-animation: bannerRecoil 2s ease-out both 5.5s;
-
-	@-webkit-keyframes bannerRecoil {
-		0% {
-			opacity: 1;
-		}
-		70% {
-			opacity: 1;
-		}
-		100% {
-			-webkit-transform: translateY(-101vh);
-			opacity: 0;
-		}
-	}
 
 	@keyframes bannerRecoil {
 		0% {
@@ -67,7 +53,6 @@ export const Container = styled.div`
 
 	.content-logo svg:first-child {
 		animation: animateTopDown 3s ease-in, rotateAnimation 4s;
-		-webkit-animation: animateTopDown 3s ease-in, rotateAnimation 4s;
 	}
 
 	.content-logo svg:first-child path {
@@ -77,8 +62,6 @@ export const Container = styled.div`
 		stroke-dasharray: 1000;
 
 		animation: animate-1 3s forwards, svg-animation 3s ease-out 3.8s forwards;
-		-webkit-animation: animate-1 3s forwards,
-			svg-animation 3s ease-out 3.8s forwards;
 	}
 
 	.content-logo svg:last-child path {
@@ -88,7 +71,6 @@ export const Container = styled.div`
 		stroke-dasharray: 1000;
 
 		animation: animateleftToRight 3.05s ease-out;
-		-webkit-animation: animateleftToRight 3.05s ease-out;
 	}
 
 	/*=========== ANIMATED LINE ===========*/
@@ -102,8 +84,8 @@ export const Container = styled.div`
 		top: 0;
 		left: 20px;
 
-		animation: animate-line 0.7s ease-in 3s;
-		-webkit-animation: animate-line 0.7s ease-in 3s;
+		animation: animate-line 0.7s ease-in;
+		animation-delay: 3s;
 	}
 
 	@keyframes animate-line {
@@ -215,118 +197,6 @@ export const Container = styled.div`
 		}
 		100% {
 			transform: rotate(360deg) scale(1);
-		}
-	}
-	/**/
-	@-webkit-keyframes animate-line {
-		from {
-			box-shadow: 0 0 1em 5px #00bfff;
-
-			height: 0%;
-		}
-
-		to {
-			box-shadow: 0 0 0;
-
-			height: 47%;
-		}
-	}
-
-	@-webkit-keyframes svg-animation {
-		0% {
-			fill-opacity: 0%;
-			stroke: #00bfff;
-			stroke-dashoffset: 1000;
-		}
-
-		50% {
-			stroke-dashoffset: 500;
-		}
-
-		100% {
-			fill: #065e7c;
-
-			fill-opacity: 100%;
-			stroke: transparent;
-			stroke-dashoffset: 0;
-		}
-	}
-
-	@-webkit-keyframes svg-animation-2 {
-		0% {
-			stroke-dashoffset: 1000;
-		}
-
-		50% {
-			stroke-dashoffset: 500;
-		}
-
-		100% {
-			fill-opacity: 100%;
-			stroke: transparent;
-			stroke-dashoffset: 0;
-		}
-	}
-
-	@-webkit-keyframes animateTopDown {
-		0% {
-			-webkit-transform: translateX(150px) scale(5);
-		}
-
-		/* 30% {
-    transform: translateY(0px) translateX(150px) scale(4);
-  } */
-
-		100% {
-			-webkit-transform: translateY(0) translateX(0);
-		}
-	}
-
-	@-webkit-keyframes animateleftToRight {
-		0% {
-			-webkit-transform: translateX(-1000px);
-		}
-
-		50% {
-			-webkit-transform: translateX(-400px);
-		}
-
-		100% {
-			-webkit-transform: translateX(0);
-		}
-	}
-
-	/*========================================*/
-	@-webkit-keyframes animate-1 {
-		0% {
-			/* fill-opacity: 0; */
-			fill: ${({ theme }) => theme.COLORS.DARK_400};
-
-			stroke-dashoffset: 1000;
-			stroke: ${({ theme }) => theme.COLORS.DARK_900};
-		}
-
-		50% {
-			stroke-dashoffset: 500;
-		}
-
-		100% {
-			/* fill-opacity: 0%; */
-			fill: ${({ theme }) => theme.COLORS.DARK_400};
-			stroke: ${({ theme }) => theme.COLORS.DARK_900};
-
-			/*  stroke: transparent; */
-			stroke-dashoffset: 0;
-		}
-	}
-
-	@-webkit-keyframes rotateAnimation {
-		0% {
-			-webkit-transform: rotate(0deg) scale(8);
-			-webkit-transform-origin: right 50px;
-		}
-		100% {
-			-webkit-transform: rotate(360deg) scale(1);
 		}
 	}
 `

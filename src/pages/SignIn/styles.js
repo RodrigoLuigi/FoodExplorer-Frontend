@@ -24,34 +24,12 @@ export const Container = styled.div`
 `
 
 export const Logo = styled.div`
-	opacity: 0;
-	visibility: hidden;
-
-	animation: fadeIn 0s linear 5s forwards;
-	-webkit-animation: fadeIn 0s linear 5s forwards;
 	img {
 		width: clamp(27.8rem, 22rem + 10vw, 35rem);
 	}
 
 	@media (min-width: 900px) {
 		margin-bottom: 8rem;
-	}
-
-	@keyframes fadeIn {
-		0% {
-		}
-		100% {
-			opacity: 1;
-			visibility: inherit;
-		}
-	}
-	@-webkit-keyframes fadeIn {
-		0% {
-		}
-		100% {
-			opacity: 1;
-			visibility: inherit;
-		}
 	}
 `
 
