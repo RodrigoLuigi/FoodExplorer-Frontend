@@ -28,6 +28,7 @@ export const Logo = styled.div`
 	visibility: hidden;
 
 	animation: fadeIn 0s linear 5s forwards;
+	-webkit-animation: fadeIn 0s linear 5s forwards;
 	img {
 		width: clamp(27.8rem, 22rem + 10vw, 35rem);
 	}
@@ -37,6 +38,14 @@ export const Logo = styled.div`
 	}
 
 	@keyframes fadeIn {
+		0% {
+		}
+		100% {
+			opacity: 1;
+			visibility: inherit;
+		}
+	}
+	@-webkit-keyframes fadeIn {
 		0% {
 		}
 		100% {
