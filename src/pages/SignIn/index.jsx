@@ -8,6 +8,7 @@ import logo from '../../assets/logo.svg'
 
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
+import { AnimatedLogo } from '../../components/AnimatedLogo'
 
 import { Container, Form, Logo } from './styles'
 
@@ -30,6 +31,7 @@ export function SignIn() {
 			<Logo>
 				<img src={logo} alt="Logo Food Explorer" />
 			</Logo>
+			<AnimatedLogo />
 
 			<Form>
 				<h1>Faça login</h1>
